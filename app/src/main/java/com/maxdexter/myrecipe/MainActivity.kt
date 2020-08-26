@@ -2,7 +2,7 @@ package com.maxdexter.myrecipe
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.maxdexter.myrecipe.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
