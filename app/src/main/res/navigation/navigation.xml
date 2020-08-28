@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/categoriesFragment">
 
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.maxdexter.myrecipe.View.notelist.NoteListFragment"
+        android:label="CategoriesFragment" />
+    <dialog
+        android:id="@+id/bottomsheetFragment"
+        android:name="com.maxdexter.myrecipe.View.bottomsheet.BottomsheetFragment"
+        android:label="BottomsheetFragment" />
 </navigation>
