@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.maxdexter.myrecipe.View.bottomsheet.BottomsheetFragment
 import com.maxdexter.myrecipe.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.app_bar_search -> Toast.makeText(this, "clicked search", Toast.LENGTH_SHORT).show()
             R.id.app_bar_settings -> Toast.makeText(this, "clicked settings", Toast.LENGTH_SHORT).show()
+            android.R.id.home -> {val bottomsheetFragment = BottomsheetFragment()
+                bottomsheetFragment.show(supportFragmentManager,"BottomSheetTAG")
+            }
         }
         return super.onOptionsItemSelected(item)
     }
