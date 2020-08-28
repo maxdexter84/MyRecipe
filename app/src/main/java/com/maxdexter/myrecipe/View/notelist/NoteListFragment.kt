@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.maxdexter.myrecipe.R
-import com.maxdexter.myrecipe.databinding.FragmentCategoriesBinding
+import com.maxdexter.myrecipe.databinding.FragmentNoteListBinding
 
 
 class NoteListFragment : Fragment() {
 private lateinit var viewModel: NoteListViewModel
-private lateinit var binding: FragmentCategoriesBinding
+private lateinit var binding: FragmentNoteListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ private lateinit var binding: FragmentCategoriesBinding
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_categories, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_list, container, false)
         viewModel = ViewModelProvider(this).get(NoteListViewModel::class.java)
 
         return binding.root
