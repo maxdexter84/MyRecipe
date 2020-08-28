@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="none">
     <item
-        android:id="@+id/fav_categore"
+        android:id="@+id/fav_category"
         app:showAsAction="always"
-        android:title="@string/fav_recipe"/>
+        android:title="@string/favorite_note"/>
     </group>
 </menu>
