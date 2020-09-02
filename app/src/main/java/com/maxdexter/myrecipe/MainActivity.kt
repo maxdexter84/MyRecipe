@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.maxdexter.myrecipe.View.bottomsheet.BottomsheetFragment
+import com.maxdexter.myrecipe.database.AppDatabase
 import com.maxdexter.myrecipe.databinding.ActivityMainBinding
+import com.maxdexter.myrecipe.repository.NoteRepository
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -19,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(bottom_app_bar)
+//        val database = App.getDatabase()
+//        val repository = database?.noteDao()?.let { NoteRepository(it) }
 
     }
 

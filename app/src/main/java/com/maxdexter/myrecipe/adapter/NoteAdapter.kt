@@ -38,9 +38,6 @@ class NoteViewHolder private constructor(item: View) : RecyclerView.ViewHolder(i
 
     fun bind(note: Note) {
         textView.text = note.title
-        Glide.with(itemView)
-            .load(note.imageURL)
-            .into(imageView)
     }
 
 

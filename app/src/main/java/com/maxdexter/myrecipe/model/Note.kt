@@ -9,10 +9,10 @@ import java.util.*
 data class Note(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val typeNote: String = "simple",
-    val title: String,
-    val description: String,
-    val date: String,
-    val imageURL: String
+    val typeNote: String? = null,
+    val title: String? = null,
+    val description: String? = null,
+    val date: String? = null,
+    val imageURL: String? = null
 
 )

@@ -12,16 +12,16 @@ abstract class AppDatabase : RoomDatabase(){
 
     companion object {
         //Singleton
-        @Volatile private var instance: AppDatabase? = null
+        @Volatile
+        private var instance: AppDatabase? = null
+        private val LOCK = Any()
 
-        fun getInstance(context: Context): AppDatabase {
-            return instance ?: synchronized(this){
-                instance ?: buildDatabase(context).also { instance = it }
-            }
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
+            instance ?: buildDatabase(context).also { instance = it}
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context,AppDatabase::class.java, "app_database").build()
+            return Room.databaseBuilder(context.applicationContext,AppDatabase::class.java, "app_database.db").build()
         }
 
 
