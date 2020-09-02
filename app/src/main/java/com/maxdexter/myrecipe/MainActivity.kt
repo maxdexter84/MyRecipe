@@ -7,7 +7,10 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.maxdexter.myrecipe.View.bottomsheet.BottomsheetFragment
+import com.maxdexter.myrecipe.View.detail.DetailFragment
+import com.maxdexter.myrecipe.View.notelist.NoteListFragment
 import com.maxdexter.myrecipe.database.AppDatabase
 import com.maxdexter.myrecipe.databinding.ActivityMainBinding
 import com.maxdexter.myrecipe.repository.NoteRepository
@@ -21,8 +24,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(bottom_app_bar)
-//        val database = App.getDatabase()
-//        val repository = database?.noteDao()?.let { NoteRepository(it) }
+        val fab = binding.fab
+        fab.setOnClickListener { supportFragmentManager.beginTransaction().add(R.id.navHostFragment,DetailFragment.newInstance()).addToBackStack("detailNote").commit() }
 
     }
 

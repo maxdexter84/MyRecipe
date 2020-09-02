@@ -12,17 +12,13 @@ class NoteListViewModel(val repository: NoteRepository, lifecycleOwner: Lifecycl
     private var viewModelJob = Job() //когда viewModel будет уничтожена то в переопределенном методе onCleared() будут так же завершены все задания
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val notes = repository.notes
-    init {
-        insert(Note(title = "My simple note", description = "My simple note text"))
-    }
 
 
-
-private fun insert(note: Note) {
+    fun insert(note: Note) {
         uiScope.launch{repository.insert(note)}
     }
 
-     override fun onCleared() {
+    override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }

@@ -41,16 +41,20 @@ class NoteListFragment : Fragment() {
         viewModelFactory = repository?.let { NoteListViewModelFactory(it,viewLifecycleOwner) }!!
         viewModel = ViewModelProvider(this,viewModelFactory).get(NoteListViewModel::class.java)
 
-        var list = mutableListOf<Note>()
-        viewModel.notes.observe(viewLifecycleOwner, Observer { list = it as MutableList<Note> })
-        initRecycler(list)
+        for (i in 1..8){
+            viewModel.insert(Note(title = "Note $i", description = "title description",noteColor = 7))
+        }
+
+
+
+        initRecycler()
 
         return binding.root
     }
 
-    private fun initRecycler(list: List<Note>) {
+    private fun initRecycler() {
         val adapter = NoteAdapter()
-        adapter.data = list
+        viewModel.notes.observe(viewLifecycleOwner, Observer { adapter.data = it  })
         val recyclerView = binding.recycler
         val layoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = layoutManager
