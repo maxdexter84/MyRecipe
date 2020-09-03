@@ -1,12 +1,15 @@
 package com.maxdexter.myrecipe.model
 
-import java.util.*
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "table_note")
 data class Note(
-    val id: Int,
-    val uuid: UUID,
-    val typeNote: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val title: String,
     val description: String,
-    val date: String
+    val noteColor: Int
+
 )
