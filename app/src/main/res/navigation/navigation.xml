@@ -6,15 +6,15 @@
     app:startDestination="@id/noteListFragment">
     <fragment
         android:id="@+id/noteListFragment"
-        android:name="com.maxdexter.myrecipe.View.notelist.NoteListFragment"
+        android:name="com.maxdexter.myrecipe.ui.notelist.NoteListFragment"
         android:label="NoteListFragment" />
     <dialog
         android:id="@+id/bottomsheetFragment"
-        android:name="com.maxdexter.myrecipe.View.bottomsheet.BottomsheetFragment"
+        android:name="com.maxdexter.myrecipe.ui.bottomsheet.BottomsheetFragment"
         android:label="BottomsheetFragment" />
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.maxdexter.myrecipe.View.detail.DetailFragment"
+        android:name="com.maxdexter.myrecipe.ui.detail.DetailFragment"
         android:label="detail_fragment"
         tools:layout="@layout/detail_fragment" />
 </navigation>

@@ -1,6 +1,5 @@
-package com.maxdexter.myrecipe.View.notelist
+package com.maxdexter.myrecipe.ui.notelist
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater

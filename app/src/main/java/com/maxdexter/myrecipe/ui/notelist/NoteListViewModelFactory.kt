@@ -1,4 +1,4 @@
-package com.maxdexter.myrecipe.View.notelist
+package com.maxdexter.myrecipe.ui.notelist
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel

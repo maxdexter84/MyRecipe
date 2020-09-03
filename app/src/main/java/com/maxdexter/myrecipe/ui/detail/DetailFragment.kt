@@ -1,6 +1,5 @@
-package com.maxdexter.myrecipe.View.detail
+package com.maxdexter.myrecipe.ui.detail
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater

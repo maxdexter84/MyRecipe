@@ -1,4 +1,4 @@
-package com.maxdexter.myrecipe
+package com.maxdexter.myrecipe.ui
 
 
 import android.os.Bundle
@@ -7,13 +7,10 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.findNavController
-import com.maxdexter.myrecipe.View.bottomsheet.BottomsheetFragment
-import com.maxdexter.myrecipe.View.detail.DetailFragment
-import com.maxdexter.myrecipe.View.notelist.NoteListFragment
-import com.maxdexter.myrecipe.database.AppDatabase
+import com.maxdexter.myrecipe.R
+import com.maxdexter.myrecipe.ui.bottomsheet.BottomsheetFragment
+import com.maxdexter.myrecipe.ui.detail.DetailFragment
 import com.maxdexter.myrecipe.databinding.ActivityMainBinding
-import com.maxdexter.myrecipe.repository.NoteRepository
 import kotlinx.android.synthetic.main.activity_main.*
 
 

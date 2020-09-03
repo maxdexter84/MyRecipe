@@ -1,8 +1,6 @@
-package com.maxdexter.myrecipe.View.notelist
+package com.maxdexter.myrecipe.ui.notelist
 
-import android.content.Context
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
