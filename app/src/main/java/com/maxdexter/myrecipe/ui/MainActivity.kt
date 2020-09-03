@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(bottom_app_bar)
         val fab = binding.fab
-        fab.setOnClickListener { supportFragmentManager.beginTransaction().add(R.id.navHostFragment,DetailFragment.newInstance()).addToBackStack("detailNote").commit() }
+        fab.setOnClickListener { supportFragmentManager.beginTransaction().replace(R.id.navHostFragment,DetailFragment.newInstance()).addToBackStack("detailNote").commit() }
 
     }
 
