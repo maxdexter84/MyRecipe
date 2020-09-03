@@ -1,5 +1,6 @@
 package com.maxdexter.myrecipe.ui.notelist
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -40,8 +41,10 @@ class NoteListFragment : Fragment() {
         viewModelFactory = repository?.let { NoteListViewModelFactory(it,viewLifecycleOwner) }!!
         viewModel = ViewModelProvider(this,viewModelFactory).get(NoteListViewModel::class.java)
 
+        val colors = listOf(Color.YELLOW,Color.GREEN, Color.BLUE)
+
         for (i in 1..8){
-            viewModel.insert(Note(title = "Note $i", description = "title description",noteColor = 7))
+            viewModel.insert(Note(title = "Note $i", description = "title description $i",noteColor = colors.random()))
         }
 
 

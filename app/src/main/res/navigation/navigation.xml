@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/noteListFragment"
         android:name="com.maxdexter.myrecipe.ui.notelist.NoteListFragment"
-        android:label="NoteListFragment" />
+        android:label="NoteListFragment" >
+        <action
+            android:id="@+id/action_noteListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <dialog
         android:id="@+id/bottomsheetFragment"
         android:name="com.maxdexter.myrecipe.ui.bottomsheet.BottomsheetFragment"

@@ -6,7 +6,6 @@ import com.maxdexter.myrecipe.model.Note
 
 @Dao
 interface NoteDao {
-
     @Insert
     suspend fun insert(note: Note)
 

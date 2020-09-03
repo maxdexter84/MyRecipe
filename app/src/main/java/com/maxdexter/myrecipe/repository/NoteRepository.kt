@@ -11,15 +11,10 @@ class NoteRepository(private val noteDao: NoteDao) {
         withContext(Dispatchers.IO) {
             noteDao.insert(note)
         }
-
     }
 
-
     companion object {
-
-        // For Singleton instantiation
         @Volatile private var instance: NoteRepository? = null
-
         fun getInstance(noteDao: NoteDao) =
             instance ?: synchronized(this) {
                 instance ?: NoteRepository(noteDao).also { instance = it }

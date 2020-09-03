@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.model.Note
+import kotlinx.android.synthetic.main.list_item_note.view.*
 
 class NoteAdapter : RecyclerView.Adapter<NoteViewHolder>() {
     var data = listOf<Note>()
@@ -33,11 +34,13 @@ class NoteAdapter : RecyclerView.Adapter<NoteViewHolder>() {
 }
 
 class NoteViewHolder private constructor(item: View) : RecyclerView.ViewHolder(item) {
-    private val imageView: AppCompatImageView = item.findViewById(R.id.iv_note_image)
-    private val textView: TextView = item.findViewById(R.id.tv_title)
+    private val textTitle = itemView.tv_title
+    private val textDescription = itemView.tv_description
 
-    fun bind(note: Note) {
-        textView.text = note.title
+    fun bind(note: Note) = with (note){
+        textTitle.text = title
+        textDescription.text = description
+        itemView.setBackgroundColor(noteColor)
     }
 
 
