@@ -56,7 +56,7 @@ class NoteListFragment : Fragment() {
 
     private fun initRecycler() {
         val adapter = NoteAdapter()
-        viewModel.notes.observe(viewLifecycleOwner, Observer { adapter.data = it  })
+        viewModel.notes.observe(viewLifecycleOwner, { adapter.submitList(it)   })
         val recyclerView = binding.recycler
         val layoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = layoutManager

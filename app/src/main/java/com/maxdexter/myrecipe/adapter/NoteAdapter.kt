@@ -1,37 +1,25 @@
 package com.maxdexter.myrecipe.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.maxdexter.myrecipe.R
+import com.maxdexter.myrecipe.databinding.ListItemNoteBinding
 import com.maxdexter.myrecipe.model.Note
-import kotlinx.android.synthetic.main.list_item_note.view.*
 
-class NoteAdapter : RecyclerView.Adapter<NoteViewHolder>() {
-    var data = listOf<Note>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class NoteAdapter : ListAdapter<Note,NoteViewHolder>(NoteAdapterDiffCallback()) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.bind(item)
 
     }
-
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
 }
 
 class NoteAdapterDiffCallback : DiffUtil.ItemCallback<Note>() {
@@ -45,13 +33,11 @@ class NoteAdapterDiffCallback : DiffUtil.ItemCallback<Note>() {
 
 }
 
-class NoteViewHolder private constructor(item: View) : RecyclerView.ViewHolder(item) {
-    private val textTitle = itemView.tv_title
-    private val textDescription = itemView.tv_description
+class NoteViewHolder private constructor(private val binding: ListItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(note: Note) = with (note){
-        textTitle.text = title
-        textDescription.text = description
+        binding.tvTitle.text = title
+        binding.tvDescription.text = description
         itemView.setBackgroundColor(noteColor)
     }
 
@@ -59,8 +45,8 @@ class NoteViewHolder private constructor(item: View) : RecyclerView.ViewHolder(i
     companion object {
         fun from (parent: ViewGroup): NoteViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val view = layoutInflater.inflate(R.layout.list_item_note,parent, false )
-            return NoteViewHolder(view)
+            val binding = ListItemNoteBinding.inflate(layoutInflater,parent, false)
+            return NoteViewHolder(binding)
         }
     }
 
