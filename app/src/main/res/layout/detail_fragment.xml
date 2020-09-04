@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="detailViewModel"
+            type="com.maxdexter.myrecipe.ui.detail.DetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,13 +21,16 @@
             android:layout_height="wrap_content"
             android:hint="@string/title_hint"
             android:layout_marginBottom="8dp"
+            android:text="@{detailViewModel.note.title}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+             />
 
         <EditText
             android:id="@+id/ed_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:text="@{detailViewModel.note.description}"
             android:hint="@string/description_hint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

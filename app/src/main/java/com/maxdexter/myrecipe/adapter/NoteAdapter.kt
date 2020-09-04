@@ -38,7 +38,9 @@ class NoteViewHolder private constructor(private val binding: ListItemNoteBindin
     fun bind(note: Note) = with (note){
         binding.tvTitle.text = title
         binding.tvDescription.text = description
-        itemView.setBackgroundColor(noteColor)
+        if (noteColor != null) {
+            itemView.setBackgroundColor(noteColor)
+        }
     }
 
 

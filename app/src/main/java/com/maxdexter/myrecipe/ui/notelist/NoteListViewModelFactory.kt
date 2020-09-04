@@ -6,7 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.maxdexter.myrecipe.repository.NoteRepository
 
 class NoteListViewModelFactory(private val noteRepository: NoteRepository, private val lifecycleOwner: LifecycleOwner): ViewModelProvider.Factory {
+    @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return NoteListViewModel(noteRepository, lifecycleOwner) as T
+        if(modelClass.isAssignableFrom(NoteListViewModel::class.java)) {
+            return NoteListViewModel(noteRepository, lifecycleOwner) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+
     }
 }

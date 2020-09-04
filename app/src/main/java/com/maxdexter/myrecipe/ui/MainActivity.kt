@@ -7,10 +7,15 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.ui.bottomsheet.BottomsheetFragment
 import com.maxdexter.myrecipe.ui.detail.DetailFragment
 import com.maxdexter.myrecipe.databinding.ActivityMainBinding
+import com.maxdexter.myrecipe.ui.notelist.NoteListFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -22,7 +27,9 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(bottom_app_bar)
         val fab = binding.fab
-        fab.setOnClickListener { supportFragmentManager.beginTransaction().replace(R.id.navHostFragment,DetailFragment.newInstance()).addToBackStack("detailNote").commit() }
+        fab.setOnClickListener {
+            binding.navHostFragment.findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToDetailFragment(-1))
+        }
 
     }
 
