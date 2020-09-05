@@ -4,18 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="clickListener"
+            type="com.maxdexter.myrecipe.adapter.NoteListener" />
+        <variable
+            name="noteItem"
+            type="com.maxdexter.myrecipe.model.Note" />
     </data>
 
     <androidx.cardview.widget.CardView
+        android:onClick="@{()->clickListener.onClick(noteItem)}"
         app:cardCornerRadius="@dimen/corner_radius_medium"
         app:cardElevation="@dimen/cardview_shadow_medium"
+        app:cardViewColor="@{noteItem}"
         android:layout_margin="@dimen/min_margin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/cardview_height">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:padding="@dimen/min_margin"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -26,6 +34,7 @@
                 android:gravity="center_horizontal"
                 android:textSize="@dimen/title_text_size"
                 android:layout_marginBottom="@dimen/min_margin"
+                app:textTitle="@{noteItem}"
                 android:textAppearance="?attr/textAppearanceListItem"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="My Note" />
@@ -36,6 +45,7 @@
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:textSize="@dimen/description_text_size"
+                app:textDescription="@{noteItem}"
                 android:layout_marginTop="@dimen/min_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

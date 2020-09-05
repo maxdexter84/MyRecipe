@@ -9,7 +9,11 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.maxdexter.myrecipe.R
+import com.maxdexter.myrecipe.database.AppDatabase
+import com.maxdexter.myrecipe.database.NoteDao
 import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
+import com.maxdexter.myrecipe.repository.NoteRepository
+
 class DetailFragment : Fragment() {
 
     companion object {
@@ -25,21 +29,29 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.detail_fragment,container, false)
+        val database = context?.let { AppDatabase(it) }
+        val repository = database?.noteDao()?.let { NoteRepository(it) }
+
         val args = arguments?.let { DetailFragmentArgs.fromBundle(it) }
-        Toast.makeText(activity, "${args?.noteId}", Toast.LENGTH_SHORT).show()
 
 
-        initViewModel(args)
+
+
+        if (repository != null) {
+            initViewModel(args, repository)
+        }
+
 
         binding.detailViewModel = viewModel
         binding.setLifecycleOwner(this)
 
+
         return binding.root
     }
 
-    private fun initViewModel(args: DetailFragmentArgs?) {
+    private fun initViewModel(args: DetailFragmentArgs?, repository: NoteRepository) {
         if (args != null) {
-            viewModelFactory = DetailViewModelFactory(args.noteId)
+            viewModelFactory = DetailViewModelFactory(args.noteId, repository)
         }
         viewModel = ViewModelProvider(this, viewModelFactory).get(DetailViewModel::class.java)
     }

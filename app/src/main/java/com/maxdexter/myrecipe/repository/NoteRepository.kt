@@ -1,5 +1,7 @@
 package com.maxdexter.myrecipe.repository
 
+import androidx.lifecycle.LiveData
+import com.maxdexter.myrecipe.database.AppDatabase
 import com.maxdexter.myrecipe.database.NoteDao
 import com.maxdexter.myrecipe.model.Note
 import kotlinx.coroutines.*
@@ -12,6 +14,10 @@ class NoteRepository(private val noteDao: NoteDao) {
             noteDao.insert(note)
         }
     }
+
+  fun getNote(id: Int): LiveData<Note> {
+      return noteDao.getNoteFromId(id)
+  }
 
     companion object {
         @Volatile private var instance: NoteRepository? = null
