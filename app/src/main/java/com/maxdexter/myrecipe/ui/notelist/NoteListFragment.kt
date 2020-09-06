@@ -51,7 +51,7 @@ class NoteListFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val adapter = NoteAdapter(NoteListener { id -> this.findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToDetailFragment(id)) })
+        val adapter = NoteAdapter(NoteListener { uuid -> this.findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToDetailFragment(uuid)) })
         viewModel.notes.observe(viewLifecycleOwner, { adapter.submitList(it)   })
         val recyclerView = binding.recycler
         val layoutManager = GridLayoutManager(context, 2)
