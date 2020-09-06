@@ -72,10 +72,19 @@ init {
         uiScope.launch{repository.updateNote(note)}
     }
 
+    fun saveNote() {
+        if (newNote.title != "" || newNote.description != "") {
+            addNote(newNote)
+        }
+        _updateNote.value = true
+
+    }
+
 
     override fun onCleared() {
         super.onCleared()
         _note.value = null
+        _updateNote.value = false
         if (newNote.title != "" || newNote.description != "") {
             addNote(newNote)
         }

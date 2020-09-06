@@ -16,4 +16,6 @@
     <string name="important_note_title">Important note</string>
     <string name="password_note_title">Password note</string>
     <string name="tools">Tools</string>
+    <string name="menu">Menu</string>
+    <string name="all_note">All</string>
 </resources>

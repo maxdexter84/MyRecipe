@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.database.AppDatabase
 import com.maxdexter.myrecipe.database.NoteDao
@@ -40,6 +41,11 @@ class DetailFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
         updateNote()
+        viewModel.updateNote.observe(viewLifecycleOwner, {update ->
+            if (update) {
+                findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToNoteListFragment())
+            }
+        })
         return binding.root
     }
 
