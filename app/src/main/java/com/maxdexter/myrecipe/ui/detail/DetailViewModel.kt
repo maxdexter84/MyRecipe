@@ -76,7 +76,10 @@ init {
     override fun onCleared() {
         super.onCleared()
         _note.value = null
-        addNote(newNote)
+        if (newNote.title != "" || newNote.description != "") {
+            addNote(newNote)
+        }
+
 
     }
 

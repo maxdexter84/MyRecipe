@@ -9,4 +9,11 @@
     <string name="favorite_note">Favorite note</string>
     <string name="title_hint">Title</string>
     <string name="description_hint">The text of the annotation</string>
+    <string name="action_share">Share</string>
+    <string name="action_delete">Delete</string>
+    <string name="add_image">Image</string>
+    <string name="simple_note_title">Simle note</string>
+    <string name="important_note_title">Important note</string>
+    <string name="password_note_title">Password note</string>
+    <string name="tools">Tools</string>
 </resources>

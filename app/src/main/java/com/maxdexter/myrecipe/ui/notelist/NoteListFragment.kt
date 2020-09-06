@@ -18,6 +18,7 @@ import com.maxdexter.myrecipe.database.AppDatabase
 import com.maxdexter.myrecipe.databinding.FragmentNoteListBinding
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
+import com.maxdexter.myrecipe.ui.detail.DetailFragment
 
 
 class NoteListFragment : Fragment() {
@@ -27,6 +28,9 @@ class NoteListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+    companion object {
+        fun newInstance() = NoteListFragment()
     }
 
     override fun onCreateView(
@@ -47,6 +51,12 @@ class NoteListFragment : Fragment() {
 
         initRecycler()
 
+        viewModel.navigate.observe(viewLifecycleOwner, {add ->
+            if (add) {
+                findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToDetailFragment(-1))
+            }
+        })
+
         return binding.root
     }
 
@@ -58,6 +68,8 @@ class NoteListFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
     }
+
+
 
 
 }
