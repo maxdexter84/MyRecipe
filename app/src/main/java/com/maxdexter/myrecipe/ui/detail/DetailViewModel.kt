@@ -1,12 +1,15 @@
 package com.maxdexter.myrecipe.ui.detail
 
+import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.database.NoteDao
+import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
 import com.maxdexter.myrecipe.utils.Color
@@ -19,6 +22,7 @@ class DetailViewModel (id: Int,private val repository: NoteRepository,val owner:
     private var viewModelJob = Job() //когда viewModel будет уничтожена то в переопределенном методе onCleared() будут так же завершены все задания
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private lateinit var newNote: Note
+
 
     private var _updateNote = MutableLiveData<Boolean>()
         val updateNote: LiveData<Boolean>
@@ -33,7 +37,9 @@ class DetailViewModel (id: Int,private val repository: NoteRepository,val owner:
         val idNote: LiveData<Int>
             get() = _idNote
 
-
+    private var _indexSpinner = MutableLiveData<Int>()
+            val indexSpinner: LiveData<Int>
+            get() = _indexSpinner
 
 
 init {
@@ -43,6 +49,7 @@ init {
     } else {
         getNote(id)
     }
+
 }
 
 
@@ -61,6 +68,7 @@ init {
         repository.getNote(id).observe(owner,{n ->
             newNote = n
             _note.value = newNote
+            spinnerItemDefault(newNote)
         })
 
     }
@@ -91,6 +99,20 @@ init {
             Color.GREEN -> R.color.color_green
             Color.BLUE -> R.color.color_blue
         }
+    }
+
+    fun spinnerItemDefault(note: Note){
+        val color = when(note.noteColor) {
+            R.color.color_white -> Color.WHITE
+            R.color.color_violet -> Color.VIOLET
+            R.color.color_yello -> Color.YELLOW
+            R.color.color_red -> Color.RED
+            R.color.color_pink -> Color.PINK
+            R.color.color_green -> Color.GREEN
+            else -> Color.BLUE
+        }
+        val arr = Color.values()
+        _indexSpinner.value = arr.indexOf(color)
     }
 
 

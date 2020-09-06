@@ -44,6 +44,7 @@ class DetailFragment : Fragment() {
         binding.detailViewModel = viewModel
         binding.setLifecycleOwner(this)
 
+
         updateNote()
         viewModel.updateNote.observe(viewLifecycleOwner, { update ->
             if (update) {
@@ -51,6 +52,8 @@ class DetailFragment : Fragment() {
             }
         })
         initSpinner()
+        viewModel.indexSpinner.observe(viewLifecycleOwner,{indx -> binding.spinner.setSelection(indx)})
+
         return binding.root
     }
 
@@ -59,7 +62,7 @@ class DetailFragment : Fragment() {
         val adapter: ArrayAdapter<Color> =
             ArrayAdapter<Color>(requireContext(), android.R.layout.simple_spinner_item, color)
         binding.spinner.adapter = adapter
-        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        binding.spinner.onItemSelectedListener = object : OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                     viewModel.itemColor(color.get(p2))
             }
