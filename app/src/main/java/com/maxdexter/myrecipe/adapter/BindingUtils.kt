@@ -1,6 +1,5 @@
 package com.maxdexter.myrecipe.adapter
 
-import android.widget.EditText
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
@@ -18,5 +17,6 @@ fun TextView.setDescription(note: Note) {
 
 @BindingAdapter("cardViewColor")
 fun CardView.setBackgroundColor(note: Note) {
-    note.noteColor?.let { setBackgroundColor(it) }
+    setBackgroundColor(resources.getColor(note.noteColor))
 }
+

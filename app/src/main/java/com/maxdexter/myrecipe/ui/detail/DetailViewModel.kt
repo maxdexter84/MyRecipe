@@ -5,9 +5,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.database.NoteDao
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
+import com.maxdexter.myrecipe.utils.Color
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -78,6 +80,17 @@ init {
         }
         _updateNote.value = true
 
+    }
+    fun itemColor(color: Color){
+        newNote.noteColor  = when(color) {
+            Color.WHITE -> R.color.color_white
+            Color.VIOLET -> R.color.color_violet
+            Color.YELLOW -> R.color.color_yello
+            Color.RED -> R.color.color_red
+            Color.PINK -> R.color.color_pink
+            Color.GREEN -> R.color.color_green
+            Color.BLUE -> R.color.color_blue
+        }
     }
 
 

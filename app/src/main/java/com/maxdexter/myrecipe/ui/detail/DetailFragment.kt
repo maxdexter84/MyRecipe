@@ -3,20 +3,24 @@ package com.maxdexter.myrecipe.ui.detail
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.database.AppDatabase
-import com.maxdexter.myrecipe.database.NoteDao
 import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
+import com.maxdexter.myrecipe.utils.Color
+
 
 class DetailFragment : Fragment() {
 
@@ -33,7 +37,7 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.detail_fragment,container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.detail_fragment, container, false)
         getArgs()
 
 
@@ -41,12 +45,28 @@ class DetailFragment : Fragment() {
         binding.setLifecycleOwner(this)
 
         updateNote()
-        viewModel.updateNote.observe(viewLifecycleOwner, {update ->
+        viewModel.updateNote.observe(viewLifecycleOwner, { update ->
             if (update) {
                 findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToNoteListFragment())
             }
         })
+        initSpinner()
         return binding.root
+    }
+
+    private fun initSpinner() {
+        val color = Color.values()
+        val adapter: ArrayAdapter<Color> =
+            ArrayAdapter<Color>(requireContext(), android.R.layout.simple_spinner_item, color)
+        binding.spinner.adapter = adapter
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    viewModel.itemColor(color.get(p2))
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
     }
 
     private fun getArgs() {

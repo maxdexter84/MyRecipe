@@ -3,6 +3,8 @@ package com.maxdexter.myrecipe.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.maxdexter.myrecipe.utils.Color
+
 import java.util.*
 
 
@@ -14,6 +16,6 @@ data class Note(
     val uuid: String = UUID.randomUUID().toString(),
     var title: String? = "",
     var description: String? = "",
-    var noteColor: Int? = 0
+    var noteColor: Int = 0
 
 )
