@@ -3,7 +3,6 @@ package com.maxdexter.myrecipe.ui.detail
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.maxdexter.myrecipe.database.NoteDao
 import com.maxdexter.myrecipe.repository.NoteRepository
 
 class DetailViewModelFactory(val id: Int, val repository: NoteRepository, val owner: LifecycleOwner) : ViewModelProvider.Factory {

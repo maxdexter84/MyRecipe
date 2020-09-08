@@ -9,13 +9,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
-import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.maxdexter.myrecipe.R
-import com.maxdexter.myrecipe.database.AppDatabase
+import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
@@ -42,7 +41,7 @@ class DetailFragment : Fragment() {
 
 
         binding.detailViewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
 
         updateNote()

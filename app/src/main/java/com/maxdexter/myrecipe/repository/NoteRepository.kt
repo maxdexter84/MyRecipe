@@ -1,9 +1,7 @@
 package com.maxdexter.myrecipe.repository
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import com.maxdexter.myrecipe.database.AppDatabase
-import com.maxdexter.myrecipe.database.NoteDao
+import com.maxdexter.myrecipe.database.room.NoteDao
 import com.maxdexter.myrecipe.model.Note
 import kotlinx.coroutines.*
 

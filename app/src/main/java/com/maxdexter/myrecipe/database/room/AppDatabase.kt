@@ -1,4 +1,4 @@
-package com.maxdexter.myrecipe.database
+package com.maxdexter.myrecipe.database.room
 
 import android.content.Context
 import androidx.room.Database
@@ -21,7 +21,7 @@ abstract class AppDatabase : RoomDatabase(){
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context.applicationContext,AppDatabase::class.java, "app_database.db").build()
+            return Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "app_database.db").build()
         }
 
 
