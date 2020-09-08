@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottomsheetFragment"
+        android:icon="@drawable/ic_baseline_menu_24"
+        android:title="@string/menu"/>
+    <item
+        android:id="@+id/noteListFragment"
+        android:icon="@drawable/ic_register"
+        android:title="@string/all_note"
+        />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/settings_dark_icone"
+        android:title="@string/tools" />
+
+
+
+</menu>

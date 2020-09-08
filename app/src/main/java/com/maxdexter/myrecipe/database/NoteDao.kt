@@ -6,7 +6,7 @@ import com.maxdexter.myrecipe.model.Note
 
 @Dao
 interface NoteDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(note: Note)
 
     @Update
