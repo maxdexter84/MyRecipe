@@ -1,5 +1,6 @@
 package com.maxdexter.myrecipe.adapter
 
+import android.app.Application
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.cardview.widget.CardView

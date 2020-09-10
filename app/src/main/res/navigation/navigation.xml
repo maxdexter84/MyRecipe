@@ -20,10 +20,12 @@
         tools:layout="@layout/detail_fragment" >
         <argument
             android:name="id"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="-1" />
         <action
             android:id="@+id/action_detailFragment_to_noteListFragment"
             app:destination="@id/noteListFragment"
+            app:popUpTo="@id/noteListFragment"
             app:popUpToInclusive="false" />
     </fragment>
     <activity

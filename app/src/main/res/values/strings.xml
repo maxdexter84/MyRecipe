@@ -19,6 +19,12 @@
     <string name="menu">Menu</string>
     <string name="all_note">All</string>
     <string name="note_color">Note color</string>
+    <string name="add_to_firestore">Add to cloud storage</string>
+    <string name="synchronization">Synchronization</string>
+    <string name="upload">upload</string>
+    <string name="add_note">Add</string>
+    <string name="download">download</string>
+    <string name="upload_to_the_cloud">Upload to the cloud</string>
 
 
 </resources>

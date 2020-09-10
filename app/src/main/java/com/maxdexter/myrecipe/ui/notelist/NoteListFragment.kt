@@ -13,6 +13,7 @@ import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.adapter.NoteAdapter
 import com.maxdexter.myrecipe.adapter.NoteListener
 import com.maxdexter.myrecipe.database.room.AppDatabase
+import com.maxdexter.myrecipe.database.room.NoteDao
 import com.maxdexter.myrecipe.databinding.FragmentNoteListBinding
 import com.maxdexter.myrecipe.repository.NoteRepository
 
@@ -34,9 +35,8 @@ class NoteListFragment : Fragment() {
 
         val database = context?.let { AppDatabase(it) }
         val repository = database?.noteDao()?.let { NoteRepository(it) }
+        viewModelFactory = NoteListViewModelFactory(repository)
 
-
-        viewModelFactory = repository?.let { NoteListViewModelFactory(it,viewLifecycleOwner) }!!
         viewModel = ViewModelProvider(this,viewModelFactory).get(NoteListViewModel::class.java)
         binding.noteListViewModel = viewModel
         binding.lifecycleOwner = this
@@ -55,7 +55,7 @@ class NoteListFragment : Fragment() {
 
     private fun initRecycler() {
         val adapter = NoteAdapter(NoteListener { uuid -> this.findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToDetailFragment(uuid)) })
-        viewModel.notes.observe(viewLifecycleOwner, { adapter.submitList(it)   })
+        viewModel.notes?.observe(viewLifecycleOwner, { adapter.submitList(it)   })
         val recyclerView = binding.recycler
         val layoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = layoutManager

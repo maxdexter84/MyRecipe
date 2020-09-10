@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.maxdexter.myrecipe.R
+import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
 import com.maxdexter.myrecipe.databinding.SettingsFragmentBinding
+import com.maxdexter.myrecipe.repository.NoteRepository
 
 class SettingsFragment : Fragment() {
 
@@ -20,19 +22,22 @@ class SettingsFragment : Fragment() {
 
     private lateinit var viewModel: SettingsViewModel
     private lateinit var binding: SettingsFragmentBinding
+    private lateinit var viewModelFactory: SettingsViewModelFactory
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.settings_fragment, container, false)
+        val database = context?.let { AppDatabase(it) }
+        val repository = database?.noteDao()?.let { NoteRepository(it) }
+        viewModelFactory = SettingsViewModelFactory(repository, viewLifecycleOwner)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(SettingsViewModel::class.java)
 
-
+        binding.settingsViewModel = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
-    }
+
 
 }

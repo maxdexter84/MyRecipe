@@ -14,8 +14,8 @@ data class Note(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val uuid: String = UUID.randomUUID().toString(),
-    var title: String? = "",
-    var description: String? = "",
+    var title: String = "",
+    var description: String = "",
     var noteColor: Int = 0
 
 )

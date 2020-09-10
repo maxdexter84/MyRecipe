@@ -115,10 +115,6 @@ init {
         super.onCleared()
         _note.value = null
         _updateNote.value = false
-        if (newNote.title != "" || newNote.description != "") {
-            addNote(newNote)
-        }
-
 
     }
 
