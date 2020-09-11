@@ -12,4 +12,6 @@
     <color name="color_red">#ff8a80</color>
     <color name="color_violet">#e1bee7</color>
     <color name="color_pink">#f8bbd0</color>
+    <color name="dark_grey">#524544</color>
+    <color name="my_card_color_main">#F7F8FC</color>
 </resources>

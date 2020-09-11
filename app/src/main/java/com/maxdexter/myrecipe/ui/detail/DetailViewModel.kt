@@ -1,15 +1,10 @@
 package com.maxdexter.myrecipe.ui.detail
 
-import android.view.LayoutInflater
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maxdexter.myrecipe.R
-import com.maxdexter.myrecipe.database.NoteDao
-import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
 import com.maxdexter.myrecipe.utils.Color
@@ -120,10 +115,6 @@ init {
         super.onCleared()
         _note.value = null
         _updateNote.value = false
-        if (newNote.title != "" || newNote.description != "") {
-            addNote(newNote)
-        }
-
 
     }
 

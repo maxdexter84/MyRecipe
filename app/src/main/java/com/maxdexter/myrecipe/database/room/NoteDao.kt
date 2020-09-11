@@ -1,4 +1,4 @@
-package com.maxdexter.myrecipe.database
+package com.maxdexter.myrecipe.database.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

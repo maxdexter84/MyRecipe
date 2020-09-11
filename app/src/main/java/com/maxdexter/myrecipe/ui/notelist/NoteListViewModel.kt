@@ -8,10 +8,10 @@ import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
 import kotlinx.coroutines.*
 
-class NoteListViewModel(val repository: NoteRepository, lifecycleOwner: LifecycleOwner) : ViewModel() {
+class NoteListViewModel(val repository: NoteRepository?) : ViewModel() {
     private var viewModelJob = Job() //когда viewModel будет уничтожена то в переопределенном методе onCleared() будут так же завершены все задания
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    val notes = repository.notes
+    val notes = repository?.notes
 
     private val _navigate = MutableLiveData<Boolean>()
             val navigate: LiveData<Boolean>
@@ -23,10 +23,12 @@ class NoteListViewModel(val repository: NoteRepository, lifecycleOwner: Lifecycl
 
 
     fun insert(note: Note) {
-        uiScope.launch{repository.insert(note)}
+        uiScope.launch{
+            repository?.insert(note)
+        }
     }
 
-    fun navigateToDetailFragment(addNote: Boolean) {
+    private fun navigateToDetailFragment(addNote: Boolean) {
         _navigate.value = true
     }
 

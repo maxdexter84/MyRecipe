@@ -20,8 +20,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 
 import com.maxdexter.myrecipe.R
+import com.maxdexter.myrecipe.database.room.AppDatabase
 
 import com.maxdexter.myrecipe.databinding.ActivityMainBinding
+import com.maxdexter.myrecipe.repository.NoteRepository
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -36,7 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.findNavController()
-
         binding.bottomNavigationView.setupWithNavController(navController)
     }
 
