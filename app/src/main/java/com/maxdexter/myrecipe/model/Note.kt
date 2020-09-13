@@ -3,7 +3,7 @@ package com.maxdexter.myrecipe.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.maxdexter.myrecipe.utils.Color
+import com.maxdexter.myrecipe.utils.currentDate
 
 import java.util.*
 
