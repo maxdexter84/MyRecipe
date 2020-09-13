@@ -1,19 +1,23 @@
 package com.maxdexter.myrecipe.ui.settings
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.firebase.ui.auth.AuthUI
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
 import com.maxdexter.myrecipe.databinding.SettingsFragmentBinding
 import com.maxdexter.myrecipe.repository.NoteRepository
-
+private const val RC_SIGN_IN = 458
 class SettingsFragment : Fragment() {
 
     companion object {
@@ -35,9 +39,31 @@ class SettingsFragment : Fragment() {
 
         binding.settingsViewModel = viewModel
         binding.lifecycleOwner = this
+        binding.auth.setOnClickListener { startLoginActivity() }
         return binding.root
     }
 
 
+
+    private fun startLoginActivity() {
+        val providers = listOf(
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build())
+
+        startActivityForResult(
+            AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setLogo(R.drawable.ic_launcher_background)
+                .setTheme(R.style.LoginStyle)
+                .setAvailableProviders(providers)
+                .build(),
+            RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == RC_SIGN_IN && resultCode != Activity.RESULT_OK) {
+            activity?.finish()
+        }
+    }
 
 }

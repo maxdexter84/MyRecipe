@@ -25,6 +25,7 @@
     <string name="add_note">Add</string>
     <string name="download">download</string>
     <string name="upload_to_the_cloud">Upload to the cloud</string>
+    <string name="authentification">Authentification</string>
 
 
 </resources>

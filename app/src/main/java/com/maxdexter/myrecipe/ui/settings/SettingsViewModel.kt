@@ -4,11 +4,14 @@ package com.maxdexter.myrecipe.ui.settings
 import android.app.Application
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.firebase.ui.auth.AuthUI
 import com.google.android.material.snackbar.Snackbar
+import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.model.NoteResult
 import com.maxdexter.myrecipe.repository.NoteRepository
@@ -34,12 +37,13 @@ class SettingsViewModel(private val repository: NoteRepository?,private val owne
 
     fun downloadFromFireStore(){
         var listOfNote = mutableListOf<Note>()
-        repository?.synchronization()?.observe(owner, {list -> listOfNote = list})
+        repository?.synchronization()?.observe(owner, {it-> listOfNote = it})
 
         uiScope.launch {listOfNote.forEach{note ->  repository?.insert(note) }  }
 
 
     }
+
 
     override fun onCleared() {
         super.onCleared()
