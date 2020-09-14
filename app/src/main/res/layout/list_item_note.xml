@@ -10,6 +10,9 @@
         <variable
             name="noteItem"
             type="com.maxdexter.myrecipe.model.Note" />
+        <variable
+            name="listViewModel"
+            type="com.maxdexter.myrecipe.ui.notelist.NoteListViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -21,35 +24,39 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/cardview_height">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:padding="@dimen/min_margin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:padding="@dimen/min_margin"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/title_text_size"
                 android:layout_marginBottom="@dimen/min_margin"
-                app:textTitle="@{noteItem}"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="@dimen/title_text_size"
+                android:fontFamily="@font/roboto_mono"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:textTitle="@{noteItem}"
+                tools:layout_editor_absoluteX="8dp"
                 tools:text="My Note" />
 
-            <TextView
-                android:id="@+id/tv_description"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:textSize="@dimen/description_text_size"
-                app:textDescription="@{noteItem}"
-                android:layout_marginTop="@dimen/min_margin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_pop_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:clickable="true"
+            android:layout_margin="4dp"
+            android:elevation="2dp"
+            android:onClick="@{()-> listViewModel.actionWithANote(noteItem)}"
+            android:src="@drawable/ic_baseline_delete_outline_24"
+            android:focusable="true" />
     </androidx.cardview.widget.CardView>
 </layout>

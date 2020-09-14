@@ -43,6 +43,12 @@ init {
         }
     }
 
+    suspend fun deleteNote(note: Note) {
+        withContext(Dispatchers.IO) {
+            noteDao.delete(note)
+        }
+    }
+
     companion object {
         @Volatile private var instance: NoteRepository? = null
         fun getInstance(noteDao: NoteDao) =

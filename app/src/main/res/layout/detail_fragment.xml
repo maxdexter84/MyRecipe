@@ -35,7 +35,7 @@
                 android:backgroundTint="@color/my_card_color_main"
                 android:inputType="textCapSentences|textMultiLine"
                 android:hint="@string/title_hint"
-                android:text="@{detailViewModel.note.title}" />
+                android:text="@{detailViewModel.note.MTitle}" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -60,7 +60,7 @@
                 android:backgroundTint="@color/my_card_color_main"
                 android:inputType="textCapSentences|textMultiLine"
                 android:hint="@string/description_hint"
-                android:text="@{detailViewModel.note.description}"
+                android:text="@{detailViewModel.note.MDescription}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.cardview.widget.CardView>

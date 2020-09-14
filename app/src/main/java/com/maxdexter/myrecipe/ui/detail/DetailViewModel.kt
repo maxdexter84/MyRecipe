@@ -52,11 +52,11 @@ init {
 
 
     fun addTitle(title: String) {
-        newNote.title = title
+        newNote.mTitle = title
 
     }
     fun addDescription( desc: String) {
-        newNote.description = desc
+        newNote.mDescription = desc
     }
 
     private fun getNote(id: Int){
@@ -78,7 +78,7 @@ init {
     }
 
     fun saveNote() {
-        if (newNote.title != "" || newNote.description != "") {
+        if (newNote.mTitle != "" || newNote.mDescription != "") {
             addNote(newNote)
         }
         _updateNote.value = true

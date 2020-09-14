@@ -40,4 +40,8 @@
         android:id="@+id/bottomsheetFragment"
         android:name="com.maxdexter.myrecipe.ui.bottomsheet.BottomsheetFragment"
         android:label="BottomsheetFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.maxdexter.myrecipe.ui.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>
