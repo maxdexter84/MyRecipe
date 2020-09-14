@@ -27,8 +27,11 @@
     <string name="upload_to_the_cloud">Upload to the cloud</string>
     <string name="authentification">Authentification</string>
     <string name="exit">Exit</string>
-    <string name="login">Login</string>
-    <string name="logout">Logout</string>
+    <string name="login">in</string>
+    <string name="logout">out</string>
+
+    <string name="logout_dialog_title">Log out of your account?</string>
+    <string name="logout_dialog_cancel">Cancel</string>
 
 
 </resources>

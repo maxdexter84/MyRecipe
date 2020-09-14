@@ -2,8 +2,11 @@ package com.maxdexter.myrecipe.ui.settings
 
 
 
+import android.app.AlertDialog
 import androidx.lifecycle.*
 import com.firebase.ui.auth.AuthUI
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 import com.maxdexter.myrecipe.model.Note
 
@@ -57,7 +60,9 @@ class SettingsViewModel(private val repository: NoteRepository?,private val owne
 
     }
 
+    fun logoutDialog(){
 
+    }
 
 
     override fun onCleared() {

@@ -33,7 +33,7 @@
             android:id="@+id/auth"
             android:layout_width="70dp"
             android:layout_height="40dp"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:text="@string/login"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView2"
@@ -45,7 +45,7 @@
             android:text="@string/logout"
             android:layout_width="70dp"
             android:layout_height="40dp"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:enabled="false"
             android:onClick="@{()->settingsViewModel.logOut()}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,11 +74,13 @@
                 android:text="@string/upload_to_the_cloud"
                 android:textSize="@dimen/medium_text" />
 
-            <ImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_save_fire_store"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:textSize="12sp"
                 android:layout_gravity="end"
+
                 android:elevation="@dimen/medium_margin"
                 android:layout_marginTop="@dimen/min_margin"
                 android:layout_marginEnd="@dimen/medium_margin"
@@ -109,10 +111,11 @@
                 android:text="@string/synchronization"
                 android:textSize="@dimen/medium_text" />
 
-            <ImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_download_fire_store"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:textSize="12sp"
                 android:layout_gravity="end"
                 android:layout_marginTop="@dimen/min_margin"
                 android:layout_marginEnd="@dimen/medium_margin"

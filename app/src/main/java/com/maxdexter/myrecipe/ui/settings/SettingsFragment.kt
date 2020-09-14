@@ -3,6 +3,7 @@ package com.maxdexter.myrecipe.ui.settings
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
+import com.google.android.material.snackbar.Snackbar
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
@@ -52,11 +54,15 @@ class SettingsFragment : Fragment() {
             if (it) {
                 binding.auth.isEnabled = false
                 binding.exit.isEnabled = true
-                binding.btnDownloadFireStore.isEnabled = true
-                binding.btnSaveFireStore.isEnabled = true
+                binding.btnDownloadFireStore.apply { isEnabled = true
+                    setColorFilter(R.color.colorAccent)}
+                binding.btnSaveFireStore.apply { isEnabled = true
+                    setColorFilter(R.color.colorAccent)}
             } else {
-                binding.btnDownloadFireStore.isEnabled = false
-                binding.btnSaveFireStore.isEnabled = false
+                binding.btnDownloadFireStore.apply { isEnabled = false
+                    setColorFilter(Color.GRAY)}
+                binding.btnSaveFireStore.apply { isEnabled = false
+                    setColorFilter(Color.GRAY) }
                 binding.auth.isEnabled = true
                 binding.exit.isEnabled = false
             }
@@ -80,13 +86,23 @@ class SettingsFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == RC_SIGN_IN && resultCode != Activity.RESULT_OK) {
-            activity?.finish()
+        if (requestCode == RC_SIGN_IN) {
+            parentFragmentManager.beginTransaction().replace(R.id.navHostFragment, newInstance()).commit()
         }
     }
 
-    fun logout() {
-        context?.let { AuthUI.getInstance().signOut(it).addOnCompleteListener {  } }
+    private fun logout() {
+        Snackbar.make(binding.root,R.string.logout_dialog_title, Snackbar.LENGTH_LONG).setAction("Yes") {
+            context?.let {
+                AuthUI.getInstance().signOut(it).addOnCompleteListener {
+                    parentFragmentManager.beginTransaction().replace(
+                        R.id.navHostFragment,
+                        newInstance()
+                    ).commit()
+                }
+            }
+        }.show()
+
     }
 
 }
