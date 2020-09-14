@@ -34,10 +34,8 @@ class NoteListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_list, container, false)
-
-        val database = context?.let { AppDatabase(it) }
-        val repository = database?.noteDao()?.let { NoteRepository(it) }
-        viewModelFactory = NoteListViewModelFactory(repository)
+        val noteDao = context?.let { AppDatabase(it) }?.noteDao()
+        viewModelFactory = NoteListViewModelFactory(noteDao?.let { NoteRepository(it) })
         viewModel = ViewModelProvider(this,viewModelFactory).get(NoteListViewModel::class.java)
         binding.noteListViewModel = viewModel
         binding.lifecycleOwner = this

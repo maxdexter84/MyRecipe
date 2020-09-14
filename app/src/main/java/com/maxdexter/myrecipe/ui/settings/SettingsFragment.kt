@@ -35,22 +35,23 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.settings_fragment, container, false)
-        val database = context?.let { AppDatabase(it) }
-        val repository = database?.noteDao()?.let { NoteRepository(it) }
-        viewModelFactory = SettingsViewModelFactory(repository, viewLifecycleOwner)
+        val noteDao = context?.let { AppDatabase(it) }?.noteDao()
+        viewModelFactory = SettingsViewModelFactory(noteDao?.let { NoteRepository(it) }, viewLifecycleOwner)
+
         viewModel = ViewModelProvider(this, viewModelFactory).get(SettingsViewModel::class.java)
 
         binding.settingsViewModel = viewModel
         binding.lifecycleOwner = this
+
         binding.auth.setOnClickListener { startLoginActivity() }
 
         initCloudAuth()
-        viewModel.logOut.observe(viewLifecycleOwner, Observer { if (it) logout() })
+        viewModel.logOut.observe(viewLifecycleOwner, { if (it) logout() })
         return binding.root
     }
 
     private fun initCloudAuth() {
-        viewModel.isAuth.observe(viewLifecycleOwner, Observer {
+        viewModel.isAuth.observe(viewLifecycleOwner, {
             if (it) {
                 binding.auth.isEnabled = false
                 binding.exit.isEnabled = true

@@ -45,15 +45,19 @@ class DetailFragment : Fragment() {
 
 
         updateNote()
+        navigateToNoteListFragment()
+        initSpinner()
+        viewModel.indexSpinner.observe(viewLifecycleOwner,{indx -> binding.spinner.setSelection(indx)})
+
+        return binding.root
+    }
+
+    private fun navigateToNoteListFragment() {
         viewModel.updateNote.observe(viewLifecycleOwner, { update ->
             if (update) {
                 findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToNoteListFragment())
             }
         })
-        initSpinner()
-        viewModel.indexSpinner.observe(viewLifecycleOwner,{indx -> binding.spinner.setSelection(indx)})
-
-        return binding.root
     }
 
     private fun initSpinner() {
