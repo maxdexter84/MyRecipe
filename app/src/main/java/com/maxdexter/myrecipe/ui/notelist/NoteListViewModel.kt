@@ -29,7 +29,7 @@ class NoteListViewModel(val repository: NoteRepository?) : ViewModel() {
     }
 
     private fun navigateToDetailFragment(addNote: Boolean) {
-        _navigate.value = true
+        _navigate.value = addNote
     }
 
     override fun onCleared() {

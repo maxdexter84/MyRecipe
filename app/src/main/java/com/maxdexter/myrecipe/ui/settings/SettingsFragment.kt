@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import com.maxdexter.myrecipe.R
@@ -40,9 +41,27 @@ class SettingsFragment : Fragment() {
         binding.settingsViewModel = viewModel
         binding.lifecycleOwner = this
         binding.auth.setOnClickListener { startLoginActivity() }
+
+        initCloudAuth()
+        viewModel.logOut.observe(viewLifecycleOwner, Observer { if (it) logout() })
         return binding.root
     }
 
+    private fun initCloudAuth() {
+        viewModel.isAuth.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                binding.auth.isEnabled = false
+                binding.exit.isEnabled = true
+                binding.btnDownloadFireStore.isEnabled = true
+                binding.btnSaveFireStore.isEnabled = true
+            } else {
+                binding.btnDownloadFireStore.isEnabled = false
+                binding.btnSaveFireStore.isEnabled = false
+                binding.auth.isEnabled = true
+                binding.exit.isEnabled = false
+            }
+        })
+    }
 
 
     private fun startLoginActivity() {
@@ -64,6 +83,10 @@ class SettingsFragment : Fragment() {
         if (requestCode == RC_SIGN_IN && resultCode != Activity.RESULT_OK) {
             activity?.finish()
         }
+    }
+
+    fun logout() {
+        context?.let { AuthUI.getInstance().signOut(it).addOnCompleteListener {  } }
     }
 
 }

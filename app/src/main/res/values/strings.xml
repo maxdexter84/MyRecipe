@@ -26,6 +26,9 @@
     <string name="download">download</string>
     <string name="upload_to_the_cloud">Upload to the cloud</string>
     <string name="authentification">Authentification</string>
+    <string name="exit">Exit</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
 
 
 </resources>
