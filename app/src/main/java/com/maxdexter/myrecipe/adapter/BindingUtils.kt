@@ -1,26 +1,27 @@
 package com.maxdexter.myrecipe.adapter
 
-import android.app.Application
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
-import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.model.Note
-import com.maxdexter.myrecipe.utils.Color
 
 @BindingAdapter("textTitle")
 fun TextView.setTitle(note: Note) {
-    text = note.title
+    text = note.mTitle
 }
 
 @BindingAdapter("textDescription")
 fun TextView.setDescription(note: Note) {
-    text = note.description
+    text = note.mDescription
 }
 
 @BindingAdapter("cardViewColor")
 fun CardView.setBackgroundColor(note: Note) {
     setBackgroundColor(resources.getColor(note.noteColor))
+}
+
+@BindingAdapter("dateTime")
+fun TextView.setTime(note: Note){
+    text = note.mDate
 }
 

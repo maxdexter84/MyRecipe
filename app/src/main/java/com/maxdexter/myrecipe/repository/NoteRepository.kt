@@ -6,6 +6,7 @@ import com.maxdexter.myrecipe.database.firestore.RemoteDataProvider
 import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.database.room.NoteDao
 import com.maxdexter.myrecipe.model.Note
+import com.maxdexter.myrecipe.model.NoteResult
 import kotlinx.coroutines.*
 
 class NoteRepository(private val noteDao: NoteDao) {
@@ -15,12 +16,14 @@ class NoteRepository(private val noteDao: NoteDao) {
     fun synchronization() = remoteProvider.subscribeToAllNotes()
     fun saveNoteInFireStore(note: Note) = remoteProvider.saveNote(note)
     fun getNoteByIdFromFireStore(uuid: String) = remoteProvider.getNoteById(uuid)
-
+    fun getCurrentUser() = remoteProvider.getCurrentUser()
     fun loadToFireStore(allNotes: List<Note>) {
         allNotes.forEach { note -> saveNoteInFireStore(note) }
     }
 
+init {
 
+}
 
     val notes = noteDao.getAllNote()
 
@@ -37,6 +40,12 @@ class NoteRepository(private val noteDao: NoteDao) {
    suspend fun updateNote(note: Note) {
         withContext(Dispatchers.IO) {
             noteDao.update(note)
+        }
+    }
+
+    suspend fun deleteNote(note: Note) {
+        withContext(Dispatchers.IO) {
+            noteDao.delete(note)
         }
     }
 

@@ -1,21 +1,28 @@
 package com.maxdexter.myrecipe.model
 
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.maxdexter.myrecipe.utils.Color
+import com.maxdexter.myrecipe.utils.currentDate
 
 import java.util.*
 
 
 
-@Entity(tableName = "table_note")
+@Entity
 data class Note(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    @ColumnInfo(name = "mUUID")
     val uuid: String = UUID.randomUUID().toString(),
-    var title: String = "",
-    var description: String = "",
-    var noteColor: Int = 0
+    @ColumnInfo(name = "title")
+    var mTitle: String = "",
+    @ColumnInfo(name = "description")
+    var mDescription: String = "",
+    @ColumnInfo(name = "type_note")
+    var noteColor: Int = 0,
+    @ColumnInfo(name = "date")
+    var mDate: String = currentDate()
 
 )

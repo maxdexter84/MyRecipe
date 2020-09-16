@@ -15,6 +15,11 @@
         android:title="@string/add_note"
         />
     <item
+        android:id="@+id/searchFragment"
+        android:title="@string/search"
+        android:icon="@drawable/ic_baseline_search_24"/>
+
+    <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/settings_dark_icone"
         android:title="@string/tools" />

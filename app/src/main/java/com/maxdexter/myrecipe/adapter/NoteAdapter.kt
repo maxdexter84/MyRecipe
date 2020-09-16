@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.maxdexter.myrecipe.databinding.ListItemNoteBinding
 import com.maxdexter.myrecipe.model.Note
+import com.maxdexter.myrecipe.ui.notelist.NoteListViewModel
 
-class NoteAdapter (val clickListener: NoteListener): ListAdapter<Note,NoteViewHolder>(NoteAdapterDiffCallback()) {
+class NoteAdapter (val clickListener: NoteListener, val viewModel: NoteListViewModel): ListAdapter<Note,NoteViewHolder>(NoteAdapterDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder.from(parent)
@@ -16,7 +17,7 @@ class NoteAdapter (val clickListener: NoteListener): ListAdapter<Note,NoteViewHo
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(clickListener,item)
+        holder.bind(clickListener,item, viewModel)
 
     }
 }
@@ -24,9 +25,10 @@ class NoteAdapter (val clickListener: NoteListener): ListAdapter<Note,NoteViewHo
 
 class NoteViewHolder private constructor(private val binding: ListItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(clickListener: NoteListener, note: Note) = with (note){
+    fun bind(clickListener: NoteListener, note: Note,viewModel: NoteListViewModel) = with (note){
         binding.noteItem = note
         binding.clickListener = clickListener
+        binding.listViewModel = viewModel
         binding.executePendingBindings()
     }
 
