@@ -80,4 +80,5 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     //Koin
     implementation 'org.koin:koin-android:1.0.1'
+    implementation 'org.koin:koin-android-viewmodel:1.0.1'
 }
