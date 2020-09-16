@@ -20,6 +20,11 @@ class NoteRepository(private val noteDao: NoteDao) {
     fun loadToFireStore(allNotes: List<Note>) {
         allNotes.forEach { note -> saveNoteInFireStore(note) }
     }
+    suspend fun deleteNoteFromFireStore(note: Note) {
+       withContext(Dispatchers.IO) {
+           remoteProvider.deleteNote(note)
+       }
+    }
 
 init {
 
@@ -27,13 +32,15 @@ init {
 
     val notes = noteDao.getAllNote()
 
-    suspend fun insert(note: Note)  {
+    suspend fun insert(note: Note): Long {
+        var id: Long
         withContext(Dispatchers.IO) {
-            noteDao.insert(note)
+           id = noteDao.insert(note)
         }
+        return id
     }
 
-  fun getNote(id: Int): LiveData<Note> {
+  fun getNote(id: Long): LiveData<Note> {
       return noteDao.getNoteFromId(id)
   }
 

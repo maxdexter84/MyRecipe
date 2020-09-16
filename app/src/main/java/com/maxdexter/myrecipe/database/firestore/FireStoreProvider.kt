@@ -10,12 +10,17 @@ import com.google.firebase.firestore.*
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.model.NoteResult
 import com.maxdexter.myrecipe.model.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.lang.Exception
 
 private const val NOTES_COLLECTION = "notes"
 private const val USERS_COLLECTION = "users"
 class FireStoreProvider : RemoteDataProvider {
-
+    private var viewModelJob = Job() //когда viewModel будет уничтожена то в переопределенном методе onCleared() будут так же завершены все задания
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val TAG = "${FireStoreProvider::class.java.simpleName} :"
     private val db = FirebaseFirestore.getInstance()
     private val notesReference = db.collection(NOTES_COLLECTION)
@@ -35,7 +40,7 @@ class FireStoreProvider : RemoteDataProvider {
                     value = snapshot?.documents?.map { it.toObject(Note::class.java)!! } as MutableList<Note>?
                 }
             }catch (e: Throwable) {
-
+                Log.e("TAG", e.stackTraceToString())
             }
         }
 
@@ -51,7 +56,7 @@ class FireStoreProvider : RemoteDataProvider {
                         throw it
                     }
             } catch (e: Throwable) {
-
+                Log.e("TAG", e.stackTraceToString())
             }
         }
 
@@ -66,7 +71,7 @@ class FireStoreProvider : RemoteDataProvider {
                         throw it
                     }
             } catch (e: Throwable) {
-
+                Log.e("TAG", e.stackTraceToString())
             }
         }
 
@@ -75,4 +80,17 @@ class FireStoreProvider : RemoteDataProvider {
             value = currentUser?.let { User(it.displayName ?: "",
                 it.email ?: "") }
         }
+
+    override suspend fun deleteNote(note: Note): Boolean {
+        var result: Boolean = false
+        getUserNotesCollection().document(note.uuid).delete()
+            .addOnSuccessListener {result = true
+                Log.d(TAG, "DocumentSnapshot successfully deleted!")
+            }.addOnFailureListener {
+                    e -> Log.w(TAG, "Error deleting document", e)
+                    }
+        return result
+    }
+
+
 }

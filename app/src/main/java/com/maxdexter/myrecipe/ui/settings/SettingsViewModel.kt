@@ -2,11 +2,9 @@ package com.maxdexter.myrecipe.ui.settings
 
 
 
-import android.app.AlertDialog
+
 import androidx.lifecycle.*
-import com.firebase.ui.auth.AuthUI
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+
 
 import com.maxdexter.myrecipe.model.Note
 
@@ -53,16 +51,13 @@ class SettingsViewModel(private val repository: NoteRepository?,private val owne
 
     fun downloadFromFireStore(){
         var listOfNote = mutableListOf<Note>()
-        repository?.synchronization()?.observe(owner, Observer{it-> listOfNote = it})
+        repository?.synchronization()?.observe(owner, Observer{it-> listOfNote = it })
 
-        uiScope.launch {listOfNote.forEach{note ->  repository?.insert(note) }  }
+        uiScope.launch {listOfNote.toSet().forEach{note ->  repository?.insert(note) }  }
 
-
-    }
-
-    fun logoutDialog(){
 
     }
+
 
 
     override fun onCleared() {

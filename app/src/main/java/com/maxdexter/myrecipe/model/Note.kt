@@ -13,7 +13,7 @@ import java.util.*
 @Entity
 data class Note(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val id: Long = 0,
     @ColumnInfo(name = "mUUID")
     val uuid: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "title")

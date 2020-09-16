@@ -20,8 +20,8 @@
         tools:layout="@layout/detail_fragment" >
         <argument
             android:name="id"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            app:argType="long"
+            android:defaultValue="-1L" />
         <action
             android:id="@+id/action_detailFragment_to_noteListFragment"
             app:destination="@id/noteListFragment"

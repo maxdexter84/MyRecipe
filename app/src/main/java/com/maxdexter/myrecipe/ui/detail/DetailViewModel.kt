@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class DetailViewModel (id: Int,private val repository: NoteRepository,val owner: LifecycleOwner): ViewModel() {
+class DetailViewModel (id: Long,private val repository: NoteRepository,val owner: LifecycleOwner): ViewModel() {
     private var viewModelJob = Job() //когда viewModel будет уничтожена то в переопределенном методе onCleared() будут так же завершены все задания
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private lateinit var newNote: Note
@@ -38,7 +38,7 @@ class DetailViewModel (id: Int,private val repository: NoteRepository,val owner:
 
 
 init {
-    if (id == -1) {
+    if (id == -1L) {
         newNote = Note( )
         _note.value = newNote
     } else {
@@ -59,7 +59,7 @@ init {
         newNote.mDescription = desc
     }
 
-    private fun getNote(id: Int){
+    private fun getNote(id: Long){
         repository.getNote(id).observe(owner,{n ->
             newNote = n
             _note.value = newNote
@@ -70,7 +70,14 @@ init {
 
 
     private fun addNote(note: Note) {
-        uiScope.launch{repository.insert(note)}
+        var id: Long = 0
+        uiScope.launch{
+           id = repository.insert(note)
+        }
+        repository.getNote(id).observe(owner, {
+            repository.saveNoteInFireStore(it)
+        })
+
     }
 
     fun updateNote(note: Note) {
