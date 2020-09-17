@@ -23,7 +23,7 @@ class NoteListViewModel(
     private val _navigate = MutableLiveData<Boolean>()
             val navigate: LiveData<Boolean>
             get() = _navigate
-
+    
 
     init {
         _navigate.value = false

@@ -7,6 +7,7 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import com.maxdexter.myrecipe.database.NoAuthException
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.model.NoteResult
 import com.maxdexter.myrecipe.model.User
@@ -18,15 +19,13 @@ import java.lang.Exception
 
 private const val NOTES_COLLECTION = "notes"
 private const val USERS_COLLECTION = "users"
-class FireStoreProvider : RemoteDataProvider {
-    private var viewModelJob = Job() //когда viewModel будет уничтожена то в переопределенном методе onCleared() будут так же завершены все задания
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val TAG = "${FireStoreProvider::class.java.simpleName} :"
-    private val db = FirebaseFirestore.getInstance()
-    private val notesReference = db.collection(NOTES_COLLECTION)
+class FireStoreProvider(private val db: FirebaseFirestore, private val auth: FirebaseAuth) : RemoteDataProvider {
 
+    private val TAG = "${FireStoreProvider::class.java.simpleName} :"
+   // private val db = FirebaseFirestore.getInstance()
     private val currentUser
-        get() = FirebaseAuth.getInstance().currentUser
+        get() = auth.currentUser
+       // get() = FirebaseAuth.getInstance().currentUser
 
 
     private fun getUserNotesCollection() = currentUser?.let {
