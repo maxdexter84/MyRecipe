@@ -51,44 +51,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/auth" />
 
-<!--        <com.google.android.material.card.MaterialCardView-->
-<!--            android:id="@+id/cv_tools_upload"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:cardBackgroundColor="@color/my_card_color_main"-->
-<!--            app:cardElevation="@dimen/cardview_default_elevation"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/auth">-->
-
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="start|center"-->
-<!--                android:layout_marginStart="@dimen/medium_margin"-->
-<!--                android:layout_marginTop="@dimen/min_margin"-->
-<!--                android:layout_marginBottom="@dimen/min_margin"-->
-<!--                android:fontFamily="@font/roboto_mono"-->
-<!--                android:text="@string/upload_to_the_cloud"-->
-<!--                android:textSize="@dimen/medium_text" />-->
-
-<!--            <androidx.appcompat.widget.AppCompatImageButton-->
-<!--                android:id="@+id/btn_save_fire_store"-->
-<!--                android:layout_width="70dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:textSize="12sp"-->
-<!--                android:layout_gravity="end"-->
-
-<!--                android:elevation="@dimen/medium_margin"-->
-<!--                android:layout_marginTop="@dimen/min_margin"-->
-<!--                android:layout_marginEnd="@dimen/medium_margin"-->
-<!--                android:layout_marginBottom="@dimen/min_margin"-->
-<!--                android:onClick="@{() -> settingsViewModel.onLoadToFireStore()}"-->
-<!--                android:src="@drawable/ic_baseline_cloud_upload_24" />-->
-
-<!--        </com.google.android.material.card.MaterialCardView>-->
 
 
         <com.google.android.material.card.MaterialCardView
@@ -129,7 +91,14 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-
+        <com.maxdexter.myrecipe.ui.customview.FaceView
+            android:id="@+id/user_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_tools_download" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

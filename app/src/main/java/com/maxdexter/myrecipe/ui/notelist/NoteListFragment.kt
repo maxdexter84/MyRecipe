@@ -40,15 +40,13 @@ class NoteListFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_list, container, false)
 
         val noteRepository: NoteRepository = get()
-        viewModelFactory = NoteListViewModelFactory(noteRepository, binding,viewLifecycleOwner)
+        viewModelFactory = NoteListViewModelFactory(noteRepository,viewLifecycleOwner)
         viewModel = ViewModelProvider(this,viewModelFactory).get(NoteListViewModel::class.java)
         binding.noteListViewModel = viewModel
         binding.lifecycleOwner = this
 
         eventTypeObserver()
         initRecycler()
-        navigate()
-
         return binding.root
     }
 
@@ -74,17 +72,7 @@ class NoteListFragment : Fragment() {
         })
     }
 
-    private fun navigate() {
-        viewModel.navigate.observe(viewLifecycleOwner, { add ->
-            if (add) {
-                findNavController().navigate(
-                    NoteListFragmentDirections.actionNoteListFragmentToDetailFragment(
-                        -1
-                    )
-                )
-            }
-        })
-    }
+
 
     private fun initRecycler() {
         val adapter = NoteAdapter(NoteListener { id -> this.findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToDetailFragment(id)) }, viewModel)
