@@ -10,6 +10,7 @@ import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.databinding.FragmentNoteListBinding
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
+import com.maxdexter.myrecipe.ui.event.EventType
 import kotlinx.coroutines.*
 
 class NoteListViewModel(
@@ -19,14 +20,21 @@ class NoteListViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val notes = repository?.notes
     private var currentUser: Boolean = false
+    private var currentNote: Note? = null
 
     private val _navigate = MutableLiveData<Boolean>()
             val navigate: LiveData<Boolean>
             get() = _navigate
-    
+
+    private val _eventType = MutableLiveData<EventType>()
+            val eventType: LiveData<EventType>
+            get() = _eventType
+
+
 
     init {
         _navigate.value = false
+        _eventType.value = EventType.NO_EVENTS
         repository?.getCurrentUser()?.observe(lifecycleOwner, Observer { if (it != null) currentUser = true })
     }
 
@@ -34,13 +42,13 @@ class NoteListViewModel(
     fun actionWithANote(note: Note) {
         deleteItem(note)
     }
-    fun deleteNote(note: Note) = uiScope.launch {
-        repository?.deleteNote(note)
+    fun deleteNote() = uiScope.launch {
+        currentNote?.let { repository?.deleteNote(it) }
 
     }
 
-    fun deleteNoteFromFireStore(note: Note) = uiScope.launch {
-        repository?.deleteNoteFromFireStore(note)
+    fun deleteNoteFromFireStore() = uiScope.launch {
+        currentNote?.let { repository?.deleteNoteFromFireStore(it) }
     }
 
     private fun navigateToDetailFragment(addNote: Boolean) {
@@ -48,18 +56,12 @@ class NoteListViewModel(
     }
 
     private fun deleteItem(note: Note) {
+        currentNote = note
         if (currentUser){
-            Snackbar.make(
-                binding.root,
-                R.string.snackbar_delete_note_title,
-                Snackbar.LENGTH_LONG
-            ).setAction("Yes") {
-                note.let { it1 ->
-                    deleteNoteFromFireStore(it1)
-                    deleteNote(it1)
-                }
-            }.show()
-        }else {Snackbar.make(binding.root, R.string.toast_login_about_delete, Snackbar.LENGTH_SHORT).show()}
+            _eventType.value = EventType.DELETE_NOTE_AUTH
+        }else {
+            _eventType.value = EventType.DELETE_NOTE_NOT_AUTH
+            }
     }
 
     override fun onCleared() {

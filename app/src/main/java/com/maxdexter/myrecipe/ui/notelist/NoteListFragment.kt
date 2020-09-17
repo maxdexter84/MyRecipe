@@ -1,6 +1,7 @@
 package com.maxdexter.myrecipe.ui.notelist
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.database.room.NoteDao
 import com.maxdexter.myrecipe.databinding.FragmentNoteListBinding
 import com.maxdexter.myrecipe.repository.NoteRepository
+import com.maxdexter.myrecipe.ui.event.EventType
 import org.koin.android.ext.android.get
 
 
@@ -36,18 +38,40 @@ class NoteListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_list, container, false)
-//        noteDao = context?.let { AppDatabase(it) }?.noteDao()
+
         val noteRepository: NoteRepository = get()
         viewModelFactory = NoteListViewModelFactory(noteRepository, binding,viewLifecycleOwner)
         viewModel = ViewModelProvider(this,viewModelFactory).get(NoteListViewModel::class.java)
         binding.noteListViewModel = viewModel
         binding.lifecycleOwner = this
 
-
+        eventTypeObserver()
         initRecycler()
         navigate()
 
         return binding.root
+    }
+
+    private fun eventTypeObserver() {
+        viewModel.eventType.observe(viewLifecycleOwner, {
+            when (it) {
+                EventType.DELETE_NOTE_NOT_AUTH -> Snackbar.make(
+                    binding.root,
+                    R.string.toast_login_about_delete,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                EventType.DELETE_NOTE_AUTH -> Snackbar.make(
+                    binding.root,
+                    R.string.snackbar_delete_note_title,
+                    Snackbar.LENGTH_LONG
+                ).setAction("Yes") {
+                    viewModel.deleteNoteFromFireStore()
+                    viewModel.deleteNote()
+                }.show()
+                EventType.NAVIGATE -> Log.i("EVENT", "Event type NAVIGATE")
+                EventType.NO_EVENTS -> Log.i("EVENT", "Event type NO_EVENT")
+            }
+        })
     }
 
     private fun navigate() {
