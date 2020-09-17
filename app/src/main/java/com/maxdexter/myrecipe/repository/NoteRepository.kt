@@ -9,8 +9,8 @@ import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.model.NoteResult
 import kotlinx.coroutines.*
 
-class NoteRepository(private val noteDao: NoteDao) {
-
+class NoteRepository(private val database: AppDatabase) {
+    private val noteDao: NoteDao = database.noteDao()
     private val remoteProvider: RemoteDataProvider = FireStoreProvider()
 
     fun synchronization() = remoteProvider.subscribeToAllNotes()
@@ -56,13 +56,13 @@ init {
         }
     }
 
-    companion object {
-        @Volatile private var instance: NoteRepository? = null
-        fun getInstance(noteDao: NoteDao) =
-            instance ?: synchronized(this) {
-                instance ?: NoteRepository(noteDao).also { instance = it }
-            }
-    }
+//    companion object {
+//        @Volatile private var instance: NoteRepository? = null
+//        fun getInstance(noteDao: NoteDao) =
+//            instance ?: synchronized(this) {
+//                instance ?: NoteRepository(noteDao).also { instance = it }
+//            }
+//    }
 
 
 }

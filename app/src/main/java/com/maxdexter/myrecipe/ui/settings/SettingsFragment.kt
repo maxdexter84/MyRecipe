@@ -20,6 +20,8 @@ import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
 import com.maxdexter.myrecipe.databinding.SettingsFragmentBinding
 import com.maxdexter.myrecipe.repository.NoteRepository
+import org.koin.android.ext.android.get
+
 private const val RC_SIGN_IN = 458
 class SettingsFragment : Fragment() {
 
@@ -35,8 +37,9 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.settings_fragment, container, false)
-        val noteDao = context?.let { AppDatabase(it) }?.noteDao()
-        viewModelFactory = SettingsViewModelFactory(noteDao?.let { NoteRepository(it) }, viewLifecycleOwner)
+       // val noteDao = context?.let { AppDatabase(it) }?.noteDao()
+        val noteRepository: NoteRepository = get()
+        viewModelFactory = SettingsViewModelFactory(noteRepository, viewLifecycleOwner)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(SettingsViewModel::class.java)
 

@@ -18,6 +18,7 @@ import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.database.room.NoteDao
 import com.maxdexter.myrecipe.databinding.FragmentNoteListBinding
 import com.maxdexter.myrecipe.repository.NoteRepository
+import org.koin.android.ext.android.get
 
 
 class NoteListFragment : Fragment() {
@@ -35,8 +36,9 @@ class NoteListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_list, container, false)
-        noteDao = context?.let { AppDatabase(it) }?.noteDao()
-        viewModelFactory = NoteListViewModelFactory(noteDao?.let { NoteRepository(it) }, binding,viewLifecycleOwner)
+//        noteDao = context?.let { AppDatabase(it) }?.noteDao()
+        val noteRepository: NoteRepository = get()
+        viewModelFactory = NoteListViewModelFactory(noteRepository, binding,viewLifecycleOwner)
         viewModel = ViewModelProvider(this,viewModelFactory).get(NoteListViewModel::class.java)
         binding.noteListViewModel = viewModel
         binding.lifecycleOwner = this

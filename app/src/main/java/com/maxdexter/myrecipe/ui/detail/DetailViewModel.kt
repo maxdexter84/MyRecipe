@@ -70,12 +70,15 @@ init {
 
 
     private fun addNote(note: Note) {
-        var id: Long = 0
+        var id: Long = -1L
         uiScope.launch{
            id = repository.insert(note)
         }
         repository.getNote(id).observe(owner, {
-            repository.saveNoteInFireStore(it)
+            if(id != -1L) {
+                repository.saveNoteInFireStore(it)
+            }
+
         })
 
     }

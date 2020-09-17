@@ -19,6 +19,7 @@ import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
 import com.maxdexter.myrecipe.utils.Color
+import org.koin.android.ext.android.get
 
 
 class DetailFragment : Fragment() {
@@ -30,7 +31,7 @@ class DetailFragment : Fragment() {
     private lateinit var viewModel: DetailViewModel
     private lateinit var binding: DetailFragmentBinding
     private lateinit var viewModelFactory: DetailViewModelFactory
-    private lateinit var note: Note
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,12 +77,10 @@ class DetailFragment : Fragment() {
     }
 
     private fun getArgs() {
-        val database = context?.let { AppDatabase(it) }
-        val repository = database?.noteDao()?.let { NoteRepository(it) }
+        //val database = context?.let { AppDatabase(it) }
+        val repository: NoteRepository = get()
         val args = arguments?.let { DetailFragmentArgs.fromBundle(it) }
-        if (repository != null) {
-            initViewModel(args, repository)
-        }
+        initViewModel(args, repository)
     }
 
     private fun initViewModel(args: DetailFragmentArgs?, repository: NoteRepository) {
