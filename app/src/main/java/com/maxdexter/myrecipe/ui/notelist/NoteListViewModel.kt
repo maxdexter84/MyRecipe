@@ -1,10 +1,6 @@
 package com.maxdexter.myrecipe.ui.notelist
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.google.android.material.snackbar.Snackbar
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.adapter.NoteListener
@@ -35,7 +31,7 @@ class NoteListViewModel(
     }
 
 
-    fun deleteNote() = uiScope.launch {
+    fun deleteNote() = viewModelScope.launch {
         currentNote?.let { repository?.deleteNote(it) }
 
     }

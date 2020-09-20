@@ -23,6 +23,6 @@ data class Note(
     @ColumnInfo(name = "type_note")
     var noteColor: Int = 0,
     @ColumnInfo(name = "date")
-    var mDate: String = currentDate()
+    val mDate: String = currentDate()
 
 )

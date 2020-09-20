@@ -77,7 +77,6 @@ class DetailFragment : Fragment() {
     }
 
     private fun getArgs() {
-        //val database = context?.let { AppDatabase(it) }
         val repository: NoteRepository = get()
         val args = arguments?.let { DetailFragmentArgs.fromBundle(it) }
         initViewModel(args, repository)
@@ -95,10 +94,8 @@ class DetailFragment : Fragment() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 viewModel.addTitle(p0.toString())
-
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -110,13 +107,9 @@ class DetailFragment : Fragment() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 viewModel.addDescription(p0.toString())
-
-
             }
-
             override fun afterTextChanged(p0: Editable?) {
 
             }

@@ -21,39 +21,38 @@ class DetailViewModel (id: Long,private val repository: NoteRepository,val owner
 
     private var _updateNote = MutableLiveData<Boolean>()
         val updateNote: LiveData<Boolean>
-            get() = _updateNote
+        get() = _updateNote
 
 
     private var _note = MutableLiveData<Note>()
-    val note: LiveData<Note>
+        val note: LiveData<Note>
         get() = _note
 
     private var _idNote = MutableLiveData<Int>()
         val idNote: LiveData<Int>
-            get() = _idNote
+        get() = _idNote
 
     private var _indexSpinner = MutableLiveData<Int>()
-            val indexSpinner: LiveData<Int>
-            get() = _indexSpinner
+        val indexSpinner: LiveData<Int>
+        get() = _indexSpinner
 
 
 init {
-    if (id == -1L) {
-        newNote = Note( )
-        _note.value = newNote
-    } else {
-        getNote(id)
-    }
-
+    selectNote(id)
 }
 
-
-
+    private fun selectNote(id: Long) {
+        if (id == -1L) {
+            newNote = Note()
+            _note.value = newNote
+        } else {
+            getNote(id)
+        }
+    }
 
 
     fun addTitle(title: String) {
         newNote.mTitle = title
-
     }
     fun addDescription( desc: String) {
         newNote.mDescription = desc
@@ -70,16 +69,13 @@ init {
 
 
     private fun addNote(note: Note) {
-        var id: Long = -1L
-        uiScope.launch{
-           id = repository.insert(note)
-        }
-        repository.getNote(id).observe(owner, {
-            if(id != -1L) {
-                repository.saveNoteInFireStore(it)
-            }
 
-        })
+        uiScope.launch{
+            repository.insert(note)
+        }
+
+            repository.saveNoteInFireStore(note)
+
 
     }
 
@@ -92,7 +88,6 @@ init {
             addNote(newNote)
         }
         _updateNote.value = true
-
     }
     fun itemColor(color: Color){
         newNote.noteColor  = when(color) {

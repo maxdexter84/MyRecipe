@@ -73,6 +73,7 @@ class SettingsFragment : Fragment() {
 
     private fun startLoginActivity() {
         val providers = listOf(
+            AuthUI.IdpConfig.PhoneBuilder().build(),
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build())
 

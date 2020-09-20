@@ -4,5 +4,6 @@
         <attr name="fillColor" format="color" />
         <attr name="borderColor" format="color" />
         <attr name="borderWidth" format="dimension" />
+
     </declare-styleable>
 </resources>
