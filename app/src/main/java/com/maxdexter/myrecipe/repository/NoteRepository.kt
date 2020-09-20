@@ -9,9 +9,9 @@ import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.model.NoteResult
 import kotlinx.coroutines.*
 
-class NoteRepository(private val noteDao: NoteDao) {
-
-    private val remoteProvider: RemoteDataProvider = FireStoreProvider()
+class NoteRepository(private val database: AppDatabase, private val remoteProvider: RemoteDataProvider) {
+    private val noteDao: NoteDao = database.noteDao()
+    //private val remoteProvider: RemoteDataProvider = FireStoreProvider()
 
     fun synchronization() = remoteProvider.subscribeToAllNotes()
     fun saveNoteInFireStore(note: Note) = remoteProvider.saveNote(note)
@@ -20,6 +20,11 @@ class NoteRepository(private val noteDao: NoteDao) {
     fun loadToFireStore(allNotes: List<Note>) {
         allNotes.forEach { note -> saveNoteInFireStore(note) }
     }
+    suspend fun deleteNoteFromFireStore(note: Note) {
+       withContext(Dispatchers.IO) {
+           remoteProvider.deleteNote(note)
+       }
+    }
 
 init {
 
@@ -27,13 +32,15 @@ init {
 
     val notes = noteDao.getAllNote()
 
-    suspend fun insert(note: Note)  {
+    suspend fun insert(note: Note): Long {
+        var id: Long
         withContext(Dispatchers.IO) {
-            noteDao.insert(note)
+           id = noteDao.insert(note)
         }
+        return id
     }
 
-  fun getNote(id: Int): LiveData<Note> {
+  fun getNote(id: Long): LiveData<Note> {
       return noteDao.getNoteFromId(id)
   }
 
@@ -49,13 +56,13 @@ init {
         }
     }
 
-    companion object {
-        @Volatile private var instance: NoteRepository? = null
-        fun getInstance(noteDao: NoteDao) =
-            instance ?: synchronized(this) {
-                instance ?: NoteRepository(noteDao).also { instance = it }
-            }
-    }
+//    companion object {
+//        @Volatile private var instance: NoteRepository? = null
+//        fun getInstance(noteDao: NoteDao) =
+//            instance ?: synchronized(this) {
+//                instance ?: NoteRepository(noteDao).also { instance = it }
+//            }
+//    }
 
 
 }

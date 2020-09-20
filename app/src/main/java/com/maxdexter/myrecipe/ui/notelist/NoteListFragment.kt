@@ -1,6 +1,7 @@
 package com.maxdexter.myrecipe.ui.notelist
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,13 +19,16 @@ import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.database.room.NoteDao
 import com.maxdexter.myrecipe.databinding.FragmentNoteListBinding
 import com.maxdexter.myrecipe.repository.NoteRepository
+import com.maxdexter.myrecipe.ui.event.EventType
+import org.koin.android.ext.android.get
 
 
 class NoteListFragment : Fragment() {
     private lateinit var viewModel: NoteListViewModel
     private lateinit var viewModelFactory: NoteListViewModelFactory
     private lateinit var binding: FragmentNoteListBinding
-
+    private  var noteDao: NoteDao? = null
+   // private var currentUser: Boolean = false
     companion object {
         fun newInstance() = NoteListFragment()
     }
@@ -34,46 +38,44 @@ class NoteListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_note_list, container, false)
-        val noteDao = context?.let { AppDatabase(it) }?.noteDao()
-        viewModelFactory = NoteListViewModelFactory(noteDao?.let { NoteRepository(it) })
+
+        val noteRepository: NoteRepository = get()
+        viewModelFactory = NoteListViewModelFactory(noteRepository,viewLifecycleOwner)
         viewModel = ViewModelProvider(this,viewModelFactory).get(NoteListViewModel::class.java)
         binding.noteListViewModel = viewModel
         binding.lifecycleOwner = this
 
-
+        eventTypeObserver()
         initRecycler()
-        navigate()
-        deleteItem()
         return binding.root
     }
 
-    private fun deleteItem() {
-        viewModel.action.observe(viewLifecycleOwner, { note ->
-            if (note != null) {
-                Snackbar.make(binding.root, "Are You sure?", Snackbar.LENGTH_LONG)
-                    .setAction("Yes") {
-                        note.let { it1 ->
-                            viewModel.deleteNote(it1)
-                        }
-                    }.show()
+    private fun eventTypeObserver() {
+        viewModel.eventType.observe(viewLifecycleOwner, {
+            when (it) {
+                EventType.DELETE_NOTE_NOT_AUTH -> Snackbar.make(
+                    binding.root,
+                    R.string.toast_login_about_delete,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                EventType.DELETE_NOTE_AUTH -> Snackbar.make(
+                    binding.root,
+                    R.string.snackbar_delete_note_title,
+                    Snackbar.LENGTH_LONG
+                ).setAction("Yes") {
+                    viewModel.deleteNoteFromFireStore()
+                    viewModel.deleteNote()
+                }.show()
+                EventType.NAVIGATE -> Log.i("EVENT", "Event type NAVIGATE")
+                EventType.NO_EVENTS -> Log.i("EVENT", "Event type NO_EVENT")
             }
         })
     }
 
-    private fun navigate() {
-        viewModel.navigate.observe(viewLifecycleOwner, { add ->
-            if (add) {
-                findNavController().navigate(
-                    NoteListFragmentDirections.actionNoteListFragmentToDetailFragment(
-                        -1
-                    )
-                )
-            }
-        })
-    }
+
 
     private fun initRecycler() {
-        val adapter = NoteAdapter(NoteListener { uuid -> this.findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToDetailFragment(uuid)) }, viewModel)
+        val adapter = NoteAdapter(NoteListener { id -> this.findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToDetailFragment(id)) }, viewModel)
         viewModel.notes?.observe(viewLifecycleOwner, { adapter.submitList(it)   })
         val recyclerView = binding.recycler
         val layoutManager = GridLayoutManager(context, 2)

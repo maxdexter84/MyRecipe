@@ -60,6 +60,6 @@ class NoteAdapterDiffCallback : DiffUtil.ItemCallback<Note>() {
 
 }
 
-class NoteListener(val clickListener: (id: Int) -> Unit) {
+class NoteListener(val clickListener: (id: Long) -> Unit) {
     fun onClick(note: Note) = clickListener(note.id)
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.maxdexter.myrecipe.repository.NoteRepository
 
-class DetailViewModelFactory(val id: Int, val repository: NoteRepository, val owner: LifecycleOwner) : ViewModelProvider.Factory {
+class DetailViewModelFactory(val id: Long, val repository: NoteRepository, val owner: LifecycleOwner) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {

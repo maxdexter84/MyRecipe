@@ -10,4 +10,5 @@ interface RemoteDataProvider {
     fun getNoteById(uuid: String): LiveData<Note>
     fun saveNote(note: Note) : LiveData<Note>
     fun getCurrentUser(): LiveData<User?>
+    suspend fun deleteNote(note:Note): Boolean
 }

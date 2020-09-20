@@ -24,11 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/cardview_height">
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:padding="@dimen/min_margin"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent">-->
-
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
@@ -55,7 +50,7 @@
             android:clickable="true"
             android:layout_margin="4dp"
             android:elevation="2dp"
-            android:onClick="@{()-> listViewModel.actionWithANote(noteItem)}"
+            android:onClick="@{()-> listViewModel.deleteItem(noteItem)}"
             android:src="@drawable/ic_baseline_delete_outline_24"
             android:focusable="true" />
     </androidx.cardview.widget.CardView>
