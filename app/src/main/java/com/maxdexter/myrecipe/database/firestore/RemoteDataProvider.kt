@@ -8,7 +8,7 @@ import com.maxdexter.myrecipe.model.User
 interface RemoteDataProvider {
     fun subscribeToAllNotes(): LiveData<MutableList<Note>>
     suspend fun getNoteById(uuid: String): Note
-    fun saveNote(note: Note) : LiveData<Note>
+    suspend fun saveNote(note: Note) : Note
     suspend fun getCurrentUser(): User
     suspend fun deleteNote(note:Note): Boolean
 }

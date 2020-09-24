@@ -50,19 +50,19 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
             }
         }
 
-    override fun saveNote(note: Note): LiveData<Note> =
-        MutableLiveData<Note>().apply {
+    override suspend fun saveNote(note: Note): Note =
+        suspendCoroutine{continuation ->
             try {
                 getUserNotesCollection().document(note.uuid)
                     .set(note).addOnSuccessListener {
                         Log.d(TAG, "Note $note is saved")
-                        value = note
+                        continuation.resume(note)
                     }.addOnFailureListener {
                         Log.d(TAG, "Error saving note $note, message: ${it.message}")
-                        throw it
+                        continuation.resumeWithException(it)
                     }
             } catch (e: Throwable) {
-                Log.e("TAG", e.stackTraceToString())
+                continuation.resumeWithException(e)
             }
         }
 
