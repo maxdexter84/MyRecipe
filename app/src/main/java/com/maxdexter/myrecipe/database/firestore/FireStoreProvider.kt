@@ -16,6 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 private const val NOTES_COLLECTION = "notes"
 private const val USERS_COLLECTION = "users"
@@ -62,18 +66,18 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
             }
         }
 
-    override fun getNoteById(uuid: String): LiveData<Note> =
-        MutableLiveData<Note>().apply {
+    override suspend fun getNoteById(uuid: String): Note =
+        suspendCoroutine{continuation ->
             try {
-
                 getUserNotesCollection().document(uuid).get()
                     .addOnSuccessListener {
-                        value = it.toObject(Note::class.java)
+                        continuation.resume(it.toObject(Note::class.java)!!)
                     }.addOnFailureListener {
-                        throw it
+                        continuation.resumeWithException(it)
                     }
             } catch (e: Throwable) {
-                Log.e("TAG", e.stackTraceToString())
+                continuation.resumeWithException(e)
+                //Log.e("TAG", e.stackTraceToString())
             }
         }
 
