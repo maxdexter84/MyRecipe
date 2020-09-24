@@ -51,7 +51,7 @@ class NoteListViewModel(
             }
     }
 
-    override fun onCleared() {
+    public override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
 

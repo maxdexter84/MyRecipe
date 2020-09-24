@@ -10,7 +10,7 @@ import com.maxdexter.myrecipe.model.NoteResult
 import kotlinx.coroutines.*
 
 class NoteRepository(private val database: AppDatabase, private val remoteProvider: RemoteDataProvider) {
-    private val noteDao: NoteDao = database.noteDao()
+    val noteDao: NoteDao = database.noteDao()
     //private val remoteProvider: RemoteDataProvider = FireStoreProvider()
 
     fun synchronization() = remoteProvider.subscribeToAllNotes()

@@ -22,10 +22,10 @@ private const val USERS_COLLECTION = "users"
 class FireStoreProvider(private val db: FirebaseFirestore, private val auth: FirebaseAuth) : RemoteDataProvider {
 
     private val TAG = "${FireStoreProvider::class.java.simpleName} :"
-   // private val db = FirebaseFirestore.getInstance()
+
     private val currentUser
         get() = auth.currentUser
-       // get() = FirebaseAuth.getInstance().currentUser
+
 
 
     private fun getUserNotesCollection() = currentUser?.let {
@@ -37,9 +37,12 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
             try {
                 getUserNotesCollection().addSnapshotListener { snapshot , e->
                     value = snapshot?.documents?.map { it.toObject(Note::class.java)!! } as MutableList<Note>?
+                    if (e != null) {
+                        Log.e(TAG, e.message.toString())
+                    }
                 }
             }catch (e: Throwable) {
-                Log.e("TAG", e.stackTraceToString())
+                Log.e(TAG, e.stackTraceToString())
             }
         }
 
