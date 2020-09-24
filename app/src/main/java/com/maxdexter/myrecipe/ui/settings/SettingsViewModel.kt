@@ -7,6 +7,7 @@ import androidx.lifecycle.*
 
 
 import com.maxdexter.myrecipe.model.Note
+import com.maxdexter.myrecipe.model.User
 
 import com.maxdexter.myrecipe.repository.NoteRepository
 import kotlinx.coroutines.CoroutineScope
@@ -34,27 +35,45 @@ class SettingsViewModel(private val repository: NoteRepository?,private val owne
         isAuthFunc()
     }
 
+//    private fun isAuthFunc() {
+//        repository?.getCurrentUser()?.observe(owner, Observer {
+//            _isAuth.value = it != null
+//            onLoadToFireStore()
+//        })
+//    }
+
     private fun isAuthFunc() {
-        repository?.getCurrentUser()?.observe(owner, Observer {
-            _isAuth.value = it != null
-            onLoadToFireStore()
-        })
+        uiScope.launch {
+           val user: User? = repository?.getCurrentUser()
+            if (user != null) {
+                onLoadToFireStore()
+            }
+        }
     }
 
     fun logOut(){
         _logOut.value = true
     }
 
-    fun onLoadToFireStore() {
-        notes?.observe(owner, Observer{ list -> repository?.loadToFireStore(list) })
+    private fun onLoadToFireStore() {
+        notes?.observe(owner, Observer{ list ->
+            uiScope.launch { repository?.loadToFireStore(list) }
+        })
     }
+
+//    fun downloadFromFireStore(){
+//        var listOfNote = mutableListOf<Note>()
+//        repository?.synchronization()?.observe(owner, Observer{it-> listOfNote = it })
+//        uiScope.launch {listOfNote.toSet().forEach{note ->  repository?.insert(note) }  }
+//    }
 
     fun downloadFromFireStore(){
         var listOfNote = mutableListOf<Note>()
-        repository?.synchronization()?.observe(owner, Observer{it-> listOfNote = it })
+        uiScope.launch { repository?.synchronization().let{
+            if (it != null) { listOfNote = it.receive()} }
+        }
         uiScope.launch {listOfNote.toSet().forEach{note ->  repository?.insert(note) }  }
     }
-
 
 
     override fun onCleared() {
