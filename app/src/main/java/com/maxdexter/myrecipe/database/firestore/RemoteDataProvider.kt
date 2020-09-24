@@ -9,6 +9,6 @@ interface RemoteDataProvider {
     fun subscribeToAllNotes(): LiveData<MutableList<Note>>
     suspend fun getNoteById(uuid: String): Note
     fun saveNote(note: Note) : LiveData<Note>
-    fun getCurrentUser(): LiveData<User?>
+    suspend fun getCurrentUser(): User
     suspend fun deleteNote(note:Note): Boolean
 }

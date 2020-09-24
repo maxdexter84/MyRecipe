@@ -81,10 +81,10 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
             }
         }
 
-    override fun getCurrentUser(): LiveData<User?> =
-        MutableLiveData<User?>().apply {
-            value = currentUser?.let { User(it.displayName ?: "",
-                it.email ?: "") }
+    override suspend fun getCurrentUser(): User =
+        suspendCoroutine{continuation ->
+            continuation.resume(currentUser.let { User(it?.displayName ?: "",
+                it?.email ?: "") })
         }
 
     override suspend fun deleteNote(note: Note): Boolean =
