@@ -84,10 +84,18 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
             }
         }
 
-    override suspend fun getCurrentUser(): User =
+    override suspend fun getCurrentUser(): User? =
         suspendCoroutine{continuation ->
-            continuation.resume(currentUser.let { User(it?.displayName ?: "",
-                it?.email ?: "") })
+            continuation.resume(currentUser.let {
+                if(it?.displayName == null && it?.email == null) null else it.displayName?.let { it1 ->
+                    it.email?.let { it2 ->
+                        User(
+                            it1, it2
+                        )
+                    }
+                }
+            })
+
         }
 
     override suspend fun deleteNote(note: Note): Boolean =

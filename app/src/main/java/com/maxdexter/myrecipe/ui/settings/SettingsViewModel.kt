@@ -34,20 +34,18 @@ class SettingsViewModel(private val repository: NoteRepository?,private val owne
         _logOut.value = false
         isAuthFunc()
     }
-
-//    private fun isAuthFunc() {
-//        repository?.getCurrentUser()?.observe(owner, Observer {
-//            _isAuth.value = it != null
-//            onLoadToFireStore()
-//        })
-//    }
-
+    
     private fun isAuthFunc() {
         uiScope.launch {
-           val user: User? = repository?.getCurrentUser()
-                _isAuth.value = user != null
-                onLoadToFireStore()
+            repository?.getCurrentUser().let {_isAuth.value = it != null
+                if (it != null) {
+                    onLoadToFireStore()
+                }
+            }
+
         }
+
+
     }
 
     fun logOut(){
@@ -60,11 +58,6 @@ class SettingsViewModel(private val repository: NoteRepository?,private val owne
         })
     }
 
-//    fun downloadFromFireStore(){
-//        var listOfNote = mutableListOf<Note>()
-//        repository?.synchronization()?.observe(owner, Observer{it-> listOfNote = it })
-//        uiScope.launch {listOfNote.toSet().forEach{note ->  repository?.insert(note) }  }
-//    }
 
     fun downloadFromFireStore(){
         var listOfNote = mutableListOf<Note>()

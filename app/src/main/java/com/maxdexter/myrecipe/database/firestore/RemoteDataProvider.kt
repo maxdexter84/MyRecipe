@@ -10,6 +10,6 @@ interface RemoteDataProvider {
     suspend fun subscribeToAllNotes(): ReceiveChannel<MutableList<Note>>
     suspend fun getNoteById(uuid: String): Note
     suspend fun saveNote(note: Note) : Note
-    suspend fun getCurrentUser(): User
+    suspend fun getCurrentUser(): User?
     suspend fun deleteNote(note:Note): Boolean
 }
