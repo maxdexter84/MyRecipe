@@ -45,9 +45,8 @@ class SettingsViewModel(private val repository: NoteRepository?,private val owne
     private fun isAuthFunc() {
         uiScope.launch {
            val user: User? = repository?.getCurrentUser()
-            if (user != null) {
+                _isAuth.value = user != null
                 onLoadToFireStore()
-            }
         }
     }
 
