@@ -69,13 +69,10 @@ init {
 
 
     private fun addNote(note: Note) {
-
         uiScope.launch{
             repository.insert(note)
-        }
-
             repository.saveNoteInFireStore(note)
-
+        }
 
     }
 

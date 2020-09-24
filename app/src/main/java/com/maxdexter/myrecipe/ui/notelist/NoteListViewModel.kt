@@ -6,6 +6,7 @@ import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.adapter.NoteListener
 import com.maxdexter.myrecipe.databinding.FragmentNoteListBinding
 import com.maxdexter.myrecipe.model.Note
+import com.maxdexter.myrecipe.model.User
 import com.maxdexter.myrecipe.repository.NoteRepository
 import com.maxdexter.myrecipe.ui.event.EventType
 import kotlinx.coroutines.*
@@ -27,7 +28,10 @@ class NoteListViewModel(
 
     init {
         _eventType.value = EventType.NO_EVENTS
-        repository?.getCurrentUser()?.observe(lifecycleOwner, Observer { if (it != null) currentUser = true })
+        uiScope.launch {val user: User? = repository?.getCurrentUser()
+            if (user != null){currentUser = true}
+        }
+        //repository?.getCurrentUser()?.observe(lifecycleOwner, Observer { if (it != null) currentUser = true })
     }
 
 
@@ -51,7 +55,7 @@ class NoteListViewModel(
             }
     }
 
-    override fun onCleared() {
+    public override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
 
