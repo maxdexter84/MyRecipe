@@ -11,10 +11,9 @@ import com.maxdexter.myrecipe.database.NoAuthException
 import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.model.NoteResult
 import com.maxdexter.myrecipe.model.User
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
 import java.lang.Exception
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
@@ -36,11 +35,14 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
         db.collection(USERS_COLLECTION).document(it.uid).collection(NOTES_COLLECTION)
     } ?: throw NoAuthException()
 
-    override fun subscribeToAllNotes(): LiveData<MutableList<Note>> =
-        MutableLiveData<MutableList<Note>>().apply {
+    @ExperimentalCoroutinesApi
+    override suspend fun subscribeToAllNotes(): ReceiveChannel<MutableList<Note>> =
+        Channel<MutableList<Note>>(Channel.CONFLATED).apply {
+            var registration: ListenerRegistration? = null
             try {
-                getUserNotesCollection().addSnapshotListener { snapshot , e->
-                    value = snapshot?.documents?.map { it.toObject(Note::class.java)!! } as MutableList<Note>?
+               registration = getUserNotesCollection().addSnapshotListener { snapshot , e->
+                 val list = snapshot?.documents?.map { it.toObject(Note::class.java)!! } as MutableList<Note>
+                   offer(list)
                     if (e != null) {
                         Log.e(TAG, e.message.toString())
                     }
@@ -48,6 +50,7 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
             }catch (e: Throwable) {
                 Log.e(TAG, e.stackTraceToString())
             }
+            invokeOnClose { registration?.remove() }
         }
 
     override suspend fun saveNote(note: Note): Note =
