@@ -87,15 +87,20 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
                 it.email ?: "") }
         }
 
-    override suspend fun deleteNote(note: Note): Boolean {
-        var result: Boolean = false
-        getUserNotesCollection().document(note.uuid).delete()
-            .addOnSuccessListener {result = true
-                Log.d(TAG, "DocumentSnapshot successfully deleted!")
-            }.addOnFailureListener {
-                    e -> Log.w(TAG, "Error deleting document", e)
-                    }
-        return result
+    override suspend fun deleteNote(note: Note): Boolean =
+        suspendCoroutine{ continuation ->
+      try {
+          getUserNotesCollection().document(note.uuid).delete()
+              .addOnSuccessListener {
+                  continuation.resume(true)
+                  Log.d(TAG, "DocumentSnapshot successfully deleted!")
+              }.addOnFailureListener {
+                  continuation.resumeWithException(it)
+              }
+      }catch (e: Exception){
+          continuation.resumeWithException(e)
+      }
+
     }
 
 
