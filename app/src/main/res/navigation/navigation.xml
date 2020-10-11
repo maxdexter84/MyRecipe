@@ -9,9 +9,8 @@
         android:name="com.maxdexter.myrecipe.ui.notelist.NoteListFragment"
         android:label="NoteListFragment" >
         <action
-            android:id="@+id/action_noteListFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:popUpToInclusive="false" />
+            android:id="@+id/action_noteListFragment_to_viewPagerRecipeFragment2"
+            app:destination="@id/viewPagerRecipeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -22,11 +21,6 @@
             android:name="id"
             app:argType="long"
             android:defaultValue="-1L" />
-        <action
-            android:id="@+id/action_detailFragment_to_noteListFragment"
-            app:destination="@id/noteListFragment"
-            app:popUpTo="@id/noteListFragment"
-            app:popUpToInclusive="false" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"
@@ -44,4 +38,12 @@
         android:id="@+id/searchFragment"
         android:name="com.maxdexter.myrecipe.ui.search.SearchFragment"
         android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/viewPagerRecipeFragment"
+        android:name="com.maxdexter.myrecipe.ui.recipe_detail.viewpager.ViewPagerRecipeFragment"
+        android:label="ViewPagerRecipeFragment" >
+        <argument
+            android:name="recipeUUID"
+            app:argType="string" />
+    </fragment>
 </navigation>
