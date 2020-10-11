@@ -1,4 +1,4 @@
-package com.maxdexter.myrecipe.ui.detail
+package com.maxdexter.myrecipe.ui.edit_recipe
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel

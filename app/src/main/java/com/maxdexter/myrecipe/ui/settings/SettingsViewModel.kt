@@ -34,7 +34,7 @@ class SettingsViewModel(private val repository: NoteRepository?,private val owne
         _logOut.value = false
         isAuthFunc()
     }
-    
+
     private fun isAuthFunc() {
         uiScope.launch {
             repository?.getCurrentUser().let {_isAuth.value = it != null

@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.maxdexter.myrecipe.ui.detail.DetailFragment"
+        android:name="com.maxdexter.myrecipe.ui.edit_recipe.DetailFragment"
         android:label="detail_fragment"
         tools:layout="@layout/detail_fragment" >
         <argument

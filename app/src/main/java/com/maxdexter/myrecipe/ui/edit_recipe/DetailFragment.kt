@@ -1,4 +1,4 @@
-package com.maxdexter.myrecipe.ui.detail
+package com.maxdexter.myrecipe.ui.edit_recipe
 
 import android.os.Bundle
 import android.text.Editable
@@ -14,9 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.maxdexter.myrecipe.R
-import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
-import com.maxdexter.myrecipe.model.Note
 import com.maxdexter.myrecipe.repository.NoteRepository
 import com.maxdexter.myrecipe.utils.Color
 import org.koin.android.ext.android.get

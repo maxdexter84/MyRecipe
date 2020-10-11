@@ -6,14 +6,14 @@
     <data>
         <variable
             name="detailViewModel"
-            type="com.maxdexter.myrecipe.ui.detail.DetailViewModel" />
+            type="com.maxdexter.myrecipe.ui.edit_recipe.DetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.detail.DetailFragment">
+        tools:context=".ui.edit_recipe.DetailFragment">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
