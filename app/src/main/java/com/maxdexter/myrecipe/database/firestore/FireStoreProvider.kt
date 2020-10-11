@@ -1,21 +1,15 @@
 package com.maxdexter.myrecipe.database.firestore
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.maxdexter.myrecipe.database.NoAuthException
-import com.maxdexter.myrecipe.model.Note
-import com.maxdexter.myrecipe.model.NoteResult
+import com.maxdexter.myrecipe.model.Recipe
 import com.maxdexter.myrecipe.model.User
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import java.lang.Exception
-import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -36,12 +30,12 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
     } ?: throw NoAuthException()
 
     @ExperimentalCoroutinesApi
-    override suspend fun subscribeToAllNotes(): ReceiveChannel<MutableList<Note>> =
-        Channel<MutableList<Note>>(Channel.CONFLATED).apply {
+    override suspend fun subscribeToAllNotes(): ReceiveChannel<MutableList<Recipe>> =
+        Channel<MutableList<Recipe>>(Channel.CONFLATED).apply {
             var registration: ListenerRegistration? = null
             try {
                registration = getUserNotesCollection().addSnapshotListener { snapshot , e->
-                 val list = snapshot?.documents?.map { it.toObject(Note::class.java)!! } as MutableList<Note>
+                 val list = snapshot?.documents?.map { it.toObject(Recipe::class.java)!! } as MutableList<Recipe>
                    offer(list)
                     if (e != null) {
                         Log.e(TAG, e.message.toString())
@@ -53,15 +47,15 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
             invokeOnClose { registration?.remove() }
         }
 
-    override suspend fun saveNote(note: Note): Note =
+    override suspend fun saveNote(recipe: Recipe): Recipe =
         suspendCoroutine{continuation ->
             try {
-                getUserNotesCollection().document(note.uuid)
-                    .set(note).addOnSuccessListener {
-                        Log.d(TAG, "Note $note is saved")
-                        continuation.resume(note)
+                getUserNotesCollection().document(recipe.uuid)
+                    .set(recipe).addOnSuccessListener {
+                        Log.d(TAG, "Note $recipe is saved")
+                        continuation.resume(recipe)
                     }.addOnFailureListener {
-                        Log.d(TAG, "Error saving note $note, message: ${it.message}")
+                        Log.d(TAG, "Error saving note $recipe, message: ${it.message}")
                         continuation.resumeWithException(it)
                     }
             } catch (e: Throwable) {
@@ -69,12 +63,12 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
             }
         }
 
-    override suspend fun getNoteById(uuid: String): Note =
+    override suspend fun getNoteById(uuid: String): Recipe =
         suspendCoroutine{continuation ->
             try {
                 getUserNotesCollection().document(uuid).get()
                     .addOnSuccessListener {
-                        continuation.resume(it.toObject(Note::class.java)!!)
+                        continuation.resume(it.toObject(Recipe::class.java)!!)
                     }.addOnFailureListener {
                         continuation.resumeWithException(it)
                     }
@@ -98,10 +92,10 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
 
         }
 
-    override suspend fun deleteNote(note: Note): Boolean =
+    override suspend fun deleteNote(recipe: Recipe): Boolean =
         suspendCoroutine{ continuation ->
       try {
-          getUserNotesCollection().document(note.uuid).delete()
+          getUserNotesCollection().document(recipe.uuid).delete()
               .addOnSuccessListener {
                   continuation.resume(true)
                   Log.d(TAG, "DocumentSnapshot successfully deleted!")

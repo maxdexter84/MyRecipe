@@ -3,12 +3,11 @@ package com.maxdexter.myrecipe.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.maxdexter.myrecipe.database.firestore.RemoteDataProvider
 import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.database.room.NoteDao
-import com.maxdexter.myrecipe.model.Note
+import com.maxdexter.myrecipe.model.Recipe
 import com.maxdexter.myrecipe.repository.NoteRepository
 import com.maxdexter.myrecipe.ui.notelist.NoteListViewModel
 import io.mockk.every
@@ -24,7 +23,7 @@ import org.junit.Test
 
 
 
-class NoteListViewModelTest {
+class RecipeListViewModelTest {
     //правило JUnit для тестирования ViewModel:
     @get:Rule
     val taskExecutorRule = InstantTaskExecutorRule()
@@ -33,7 +32,7 @@ class NoteListViewModelTest {
     private val noteDao: NoteDao = mockk<NoteDao>()
     private val mockRepository: NoteRepository = mockk()
     private val mockLifecycle: LifecycleOwner = mockk<LifecycleOwner>()
-    private val notesLiveData = MutableLiveData<List<Note>>()
+    private val notesLiveData = MutableLiveData<List<Recipe>>()
     private lateinit var viewModel: NoteListViewModel
 
 
@@ -51,8 +50,8 @@ class NoteListViewModelTest {
 
     @Test
     fun `should return notes`(){
-        var result: List<Note>? = null
-        val testData = listOf(Note(1), Note(2))
+        var result: List<Recipe>? = null
+        val testData = listOf(Recipe(1), Recipe(2))
         viewModel.notes?.observe(mockLifecycle, {
             result = it
         })

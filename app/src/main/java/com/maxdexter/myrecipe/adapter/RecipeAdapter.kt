@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.maxdexter.myrecipe.databinding.ListItemNoteBinding
-import com.maxdexter.myrecipe.model.Note
+import com.maxdexter.myrecipe.model.Recipe
 import com.maxdexter.myrecipe.ui.notelist.NoteListViewModel
 
-class NoteAdapter (val clickListener: NoteListener, val viewModel: NoteListViewModel): ListAdapter<Note,NoteViewHolder>(NoteAdapterDiffCallback()) {
+class NoteAdapter (val clickListener: NoteListener, val viewModel: NoteListViewModel): ListAdapter<Recipe,NoteViewHolder>(NoteAdapterDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder.from(parent)
@@ -25,8 +25,8 @@ class NoteAdapter (val clickListener: NoteListener, val viewModel: NoteListViewM
 
 class NoteViewHolder private constructor(private val binding: ListItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(clickListener: NoteListener, note: Note,viewModel: NoteListViewModel) = with (note){
-        binding.noteItem = note
+    fun bind(clickListener: NoteListener, recipe: Recipe, viewModel: NoteListViewModel) = with (recipe){
+        binding.noteItem = recipe
         binding.clickListener = clickListener
         binding.listViewModel = viewModel
         binding.executePendingBindings()
@@ -49,17 +49,17 @@ class NoteViewHolder private constructor(private val binding: ListItemNoteBindin
  * Используется ListAdapter для расчета минимального количества изменений между старым списком и новым
  * список, который был передан в " submitList`.
  */
-class NoteAdapterDiffCallback : DiffUtil.ItemCallback<Note>() {
-    override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+class NoteAdapterDiffCallback : DiffUtil.ItemCallback<Recipe>() {
+    override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+    override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
         return oldItem == newItem
     }
 
 }
 
 class NoteListener(val clickListener: (id: Long) -> Unit) {
-    fun onClick(note: Note) = clickListener(note.id)
+    fun onClick(recipe: Recipe) = clickListener(recipe.id)
 }

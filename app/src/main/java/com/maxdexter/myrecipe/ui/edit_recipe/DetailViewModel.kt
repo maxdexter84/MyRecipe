@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maxdexter.myrecipe.R
-import com.maxdexter.myrecipe.model.Note
+import com.maxdexter.myrecipe.model.Recipe
 import com.maxdexter.myrecipe.repository.NoteRepository
 import com.maxdexter.myrecipe.utils.Color
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 class DetailViewModel (id: Long,private val repository: NoteRepository,val owner: LifecycleOwner): ViewModel() {
     private var viewModelJob = Job() //когда viewModel будет уничтожена то в переопределенном методе onCleared() будут так же завершены все задания
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private lateinit var newNote: Note
+    private lateinit var newRecipe: Recipe
 
 
     private var _updateNote = MutableLiveData<Boolean>()
@@ -24,8 +24,8 @@ class DetailViewModel (id: Long,private val repository: NoteRepository,val owner
         get() = _updateNote
 
 
-    private var _note = MutableLiveData<Note>()
-        val note: LiveData<Note>
+    private var _note = MutableLiveData<Recipe>()
+        val recipe: LiveData<Recipe>
         get() = _note
 
     private var _idNote = MutableLiveData<Int>()
@@ -43,8 +43,8 @@ init {
 
     private fun selectNote(id: Long) {
         if (id == -1L) {
-            newNote = Note()
-            _note.value = newNote
+            newRecipe = Recipe()
+            _note.value = newRecipe
         } else {
             getNote(id)
         }
@@ -52,42 +52,42 @@ init {
 
 
     fun addTitle(title: String) {
-        newNote.mTitle = title
+        newRecipe.mTitle = title
     }
     fun addDescription( desc: String) {
-        newNote.mDescription = desc
+        newRecipe.mDescription = desc
     }
 
     private fun getNote(id: Long){
         repository.getNote(id).observe(owner,{n ->
-            newNote = n
-            _note.value = newNote
-            spinnerItemDefault(newNote)
+            newRecipe = n
+            _note.value = newRecipe
+            spinnerItemDefault(newRecipe)
         })
 
     }
 
 
-    private fun addNote(note: Note) {
+    private fun addNote(recipe: Recipe) {
         uiScope.launch{
-            repository.insert(note)
-            repository.saveNoteInFireStore(note)
+            repository.insert(recipe)
+            repository.saveNoteInFireStore(recipe)
         }
 
     }
 
-    fun updateNote(note: Note) {
-        uiScope.launch{repository.updateNote(note)}
+    fun updateNote(recipe: Recipe) {
+        uiScope.launch{repository.updateNote(recipe)}
     }
 
     fun saveNote() {
-        if (newNote.mTitle != "" || newNote.mDescription != "") {
-            addNote(newNote)
+        if (newRecipe.mTitle != "" || newRecipe.mDescription != "") {
+            addNote(newRecipe)
         }
         _updateNote.value = true
     }
     fun itemColor(color: Color){
-        newNote.noteColor  = when(color) {
+        newRecipe.noteColor  = when(color) {
             Color.WHITE -> R.color.color_white
             Color.VIOLET -> R.color.color_violet
             Color.YELLOW -> R.color.color_yello
@@ -98,8 +98,8 @@ init {
         }
     }
 
-    fun spinnerItemDefault(note: Note){
-        val color = when(note.noteColor) {
+    fun spinnerItemDefault(recipe: Recipe){
+        val color = when(recipe.noteColor) {
             R.color.color_white -> Color.WHITE
             R.color.color_violet -> Color.VIOLET
             R.color.color_yello -> Color.YELLOW

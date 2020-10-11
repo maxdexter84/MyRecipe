@@ -11,7 +11,7 @@ import java.util.*
 
 
 @Entity
-data class Note(
+data class Recipe(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     @ColumnInfo(name = "mUUID")

@@ -9,7 +9,7 @@
             type="com.maxdexter.myrecipe.adapter.NoteListener" />
         <variable
             name="noteItem"
-            type="com.maxdexter.myrecipe.model.Note" />
+            type="com.maxdexter.myrecipe.model.Recipe" />
         <variable
             name="listViewModel"
             type="com.maxdexter.myrecipe.ui.notelist.NoteListViewModel" />

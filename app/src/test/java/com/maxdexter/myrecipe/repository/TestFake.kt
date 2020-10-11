@@ -6,7 +6,7 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.maxdexter.myrecipe.database.firestore.RemoteDataProvider
 import com.maxdexter.myrecipe.database.room.AppDatabase
 import com.maxdexter.myrecipe.database.room.NoteDao
-import com.maxdexter.myrecipe.model.Note
+import com.maxdexter.myrecipe.model.Recipe
 import com.maxdexter.myrecipe.model.User
 import kotlinx.coroutines.channels.ReceiveChannel
 
@@ -30,15 +30,15 @@ class AppDatabaseFake: AppDatabase() {
 }
 
 class RemoteDataProviderFake : RemoteDataProvider{
-    override suspend fun subscribeToAllNotes(): ReceiveChannel<MutableList<Note>> {
+    override suspend fun subscribeToAllNotes(): ReceiveChannel<MutableList<Recipe>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getNoteById(uuid: String): Note {
+    override suspend fun getNoteById(uuid: String): Recipe {
         TODO("Not yet implemented")
     }
 
-    override suspend fun saveNote(note: Note): Note {
+    override suspend fun saveNote(recipe: Recipe): Recipe {
         TODO("Not yet implemented")
     }
 
@@ -46,7 +46,7 @@ class RemoteDataProviderFake : RemoteDataProvider{
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteNote(note: Note): Boolean {
+    override suspend fun deleteNote(recipe: Recipe): Boolean {
         TODO("Not yet implemented")
     }
 

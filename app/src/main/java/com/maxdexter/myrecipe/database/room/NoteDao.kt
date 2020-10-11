@@ -2,22 +2,22 @@ package com.maxdexter.myrecipe.database.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.maxdexter.myrecipe.model.Note
+import com.maxdexter.myrecipe.model.Recipe
 
 @Dao
 interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(note: Note):Long
+    suspend fun insert(recipe: Recipe):Long
 
     @Update
-    suspend fun update(note:Note)
+    suspend fun update(recipe:Recipe)
 
     @Delete
-    suspend fun delete(note: Note)
+    suspend fun delete(recipe: Recipe)
 
-    @Query("SELECT * FROM note where id =:id")
-    fun getNoteFromId(id: Long):LiveData<Note>
+    @Query("SELECT * FROM recipe where id =:id")
+    fun getNoteFromId(id: Long):LiveData<Recipe>
 
-    @Query("SELECT * FROM note")
-    fun getAllNote(): LiveData<List<Note>>
+    @Query("SELECT * FROM recipe")
+    fun getAllNote(): LiveData<List<Recipe>>
 }

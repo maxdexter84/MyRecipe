@@ -1,11 +1,8 @@
 package com.maxdexter.myrecipe.ui.notelist
 
 import androidx.lifecycle.*
-import com.google.android.material.snackbar.Snackbar
-import com.maxdexter.myrecipe.R
-import com.maxdexter.myrecipe.adapter.NoteListener
 import com.maxdexter.myrecipe.databinding.FragmentNoteListBinding
-import com.maxdexter.myrecipe.model.Note
+import com.maxdexter.myrecipe.model.Recipe
 import com.maxdexter.myrecipe.model.User
 import com.maxdexter.myrecipe.repository.NoteRepository
 import com.maxdexter.myrecipe.ui.event.EventType
@@ -18,7 +15,7 @@ class NoteListViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val notes = repository?.notes
     private var currentUser: Boolean = false
-    private var currentNote: Note? = null
+    private var currentRecipe: Recipe? = null
 
     private val _eventType = MutableLiveData<EventType>()
             val eventType: LiveData<EventType>
@@ -36,18 +33,18 @@ class NoteListViewModel(
 
 
     fun deleteNote() = viewModelScope.launch {
-        currentNote?.let { repository?.deleteNote(it) }
+        currentRecipe?.let { repository?.deleteNote(it) }
 
     }
 
     fun deleteNoteFromFireStore() = uiScope.launch {
-        currentNote?.let { repository?.deleteNoteFromFireStore(it) }
+        currentRecipe?.let { repository?.deleteNoteFromFireStore(it) }
     }
 
 
 
-    fun deleteItem(note: Note) {
-        currentNote = note
+    fun deleteItem(recipe: Recipe) {
+        currentRecipe = recipe
         if (currentUser){
             _eventType.value = EventType.DELETE_NOTE_AUTH
         }else {

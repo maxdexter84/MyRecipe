@@ -6,8 +6,7 @@ package com.maxdexter.myrecipe.ui.settings
 import androidx.lifecycle.*
 
 
-import com.maxdexter.myrecipe.model.Note
-import com.maxdexter.myrecipe.model.User
+import com.maxdexter.myrecipe.model.Recipe
 
 import com.maxdexter.myrecipe.repository.NoteRepository
 import kotlinx.coroutines.CoroutineScope
@@ -60,7 +59,7 @@ class SettingsViewModel(private val repository: NoteRepository?,private val owne
 
 
     fun downloadFromFireStore(){
-        var listOfNote = mutableListOf<Note>()
+        var listOfNote = mutableListOf<Recipe>()
         uiScope.launch { repository?.synchronization().let{
             if (it != null) { listOfNote = it.receive()} }
         }
