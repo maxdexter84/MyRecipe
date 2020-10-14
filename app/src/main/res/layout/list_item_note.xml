@@ -10,48 +10,43 @@
         <variable
             name="noteItem"
             type="com.maxdexter.myrecipe.model.Recipe" />
-        <variable
-            name="listViewModel"
-            type="com.maxdexter.myrecipe.ui.notelist.NoteListViewModel" />
+
     </data>
 
     <androidx.cardview.widget.CardView
         android:onClick="@{()->clickListener.onClick(noteItem)}"
         app:cardCornerRadius="@dimen/corner_radius_medium"
         app:cardElevation="@dimen/cardview_shadow_medium"
-        app:cardViewColor="@{noteItem}"
         android:layout_margin="@dimen/min_margin"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/cardview_height">
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_recipe_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/min_margin"
-                android:gravity="center_horizontal"
                 android:layout_gravity="center"
+                android:fontFamily="@font/roboto_mono"
+                android:gravity="center_horizontal"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="@dimen/title_text_size"
-                android:fontFamily="@font/roboto_mono"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_recipe_image"
                 app:textTitle="@{noteItem}"
-                tools:layout_editor_absoluteX="8dp"
                 tools:text="My Note" />
-
-
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_pop_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:clickable="true"
-            android:layout_margin="4dp"
-            android:elevation="2dp"
-            android:onClick="@{()-> listViewModel.deleteItem(noteItem)}"
-            android:src="@drawable/ic_baseline_delete_outline_24"
-            android:focusable="true" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

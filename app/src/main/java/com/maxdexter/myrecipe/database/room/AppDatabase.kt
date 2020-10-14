@@ -8,7 +8,7 @@ import com.maxdexter.myrecipe.model.Recipe
 
 @Database(entities = [Recipe::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase(){
-    abstract fun noteDao(): NoteDao
+    abstract fun recipeDao(): RecipeDao
 
     companion object {
         //Singleton

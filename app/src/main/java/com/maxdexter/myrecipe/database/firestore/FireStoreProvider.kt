@@ -16,6 +16,7 @@ import kotlin.coroutines.suspendCoroutine
 
 private const val NOTES_COLLECTION = "notes"
 private const val USERS_COLLECTION = "users"
+private const val RECIPES_COLLECTION = "recipes"
 class FireStoreProvider(private val db: FirebaseFirestore, private val auth: FirebaseAuth) : RemoteDataProvider {
 
     private val TAG = "${FireStoreProvider::class.java.simpleName} :"
@@ -28,6 +29,10 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
     private fun getUserNotesCollection() = currentUser?.let {
         db.collection(USERS_COLLECTION).document(it.uid).collection(NOTES_COLLECTION)
     } ?: throw NoAuthException()
+
+
+    private fun getRecipesCollection() = db.collection(RECIPES_COLLECTION)
+
 
     @ExperimentalCoroutinesApi
     override suspend fun subscribeToAllNotes(): ReceiveChannel<MutableList<Recipe>> =
@@ -47,21 +52,40 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
             invokeOnClose { registration?.remove() }
         }
 
+//    override suspend fun saveNote(recipe: Recipe): Recipe =
+//        suspendCoroutine{continuation ->
+//            try {
+//                getUserNotesCollection().document(recipe.uuid)
+//                    .set(recipe).addOnSuccessListener {
+//                        Log.d(TAG, "Note $recipe is saved")
+//                        continuation.resume(recipe)
+//                    }.addOnFailureListener {
+//                        Log.d(TAG, "Error saving note $recipe, message: ${it.message}")
+//                        continuation.resumeWithException(it)
+//                    }
+//            } catch (e: Throwable) {
+//                continuation.resumeWithException(e)
+//            }
+//        }
+
     override suspend fun saveNote(recipe: Recipe): Recipe =
-        suspendCoroutine{continuation ->
+        suspendCoroutine { continuation ->
             try {
-                getUserNotesCollection().document(recipe.uuid)
-                    .set(recipe).addOnSuccessListener {
-                        Log.d(TAG, "Note $recipe is saved")
+                getRecipesCollection().document(recipe.uuid).set(recipe)
+                    .addOnSuccessListener {
+                        Log.i("TAG","${recipe.recipe}  Success add")
                         continuation.resume(recipe)
+
                     }.addOnFailureListener {
                         Log.d(TAG, "Error saving note $recipe, message: ${it.message}")
-                        continuation.resumeWithException(it)
+                       continuation.resumeWithException(it)
                     }
-            } catch (e: Throwable) {
+            }catch (e: Exception) {
                 continuation.resumeWithException(e)
             }
         }
+
+
 
     override suspend fun getNoteById(uuid: String): Recipe =
         suspendCoroutine{continuation ->
@@ -107,6 +131,9 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
       }
 
     }
+
+
+
 
 
 }

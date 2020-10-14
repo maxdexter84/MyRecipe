@@ -16,8 +16,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.snackbar.Snackbar
 import com.maxdexter.myrecipe.R
-import com.maxdexter.myrecipe.database.room.AppDatabase
-import com.maxdexter.myrecipe.databinding.DetailFragmentBinding
 import com.maxdexter.myrecipe.databinding.SettingsFragmentBinding
 import com.maxdexter.myrecipe.repository.NoteRepository
 import org.koin.android.ext.android.get

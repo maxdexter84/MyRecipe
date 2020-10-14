@@ -14,15 +14,23 @@ import java.util.*
 data class Recipe(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    @ColumnInfo(name = "mUUID")
+    @ColumnInfo(name = "uuid")
     val uuid: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "title")
-    var mTitle: String = "",
+    val recipe : String ="",
+    @ColumnInfo(name = "ingredients")
+    val content : String = "",
     @ColumnInfo(name = "description")
-    var mDescription: String = "",
-    @ColumnInfo(name = "type_note")
-    var noteColor: Int = 0,
-    @ColumnInfo(name = "date")
-    val mDate: String = currentDate()
+    val recipeDescription : String = "",
+    @ColumnInfo(name = "dishType")
+    val dishType : String = "",
+    @ColumnInfo(name = "cuisine")
+    val cuisine : String = "",
+    @ColumnInfo(name = "notes")
+    val notes : String = "",
+    @ColumnInfo(name ="date")
+    val date: String = currentDate(),
+    @ColumnInfo(name = "picURL")
+    val picURL: String = ""
 
 )

@@ -12,16 +12,6 @@
             android:id="@+id/action_noteListFragment_to_viewPagerRecipeFragment2"
             app:destination="@id/viewPagerRecipeFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.maxdexter.myrecipe.ui.edit_recipe.DetailFragment"
-        android:label="detail_fragment"
-        tools:layout="@layout/detail_fragment" >
-        <argument
-            android:name="id"
-            app:argType="long"
-            android:defaultValue="-1L" />
-    </fragment>
     <activity
         android:id="@+id/mainActivity"
         android:name="com.maxdexter.myrecipe.ui.MainActivity"
@@ -46,4 +36,13 @@
             android:name="recipeUUID"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/recipeInfoFragment"
+        android:name="com.maxdexter.myrecipe.ui.recipe_detail.recipepage.recipeinfopage.RecipeInfoFragment"
+        android:label="RecipeInfoFragment" />
+    <fragment
+        android:id="@+id/cookingInstructionsFragment"
+        android:name="com.maxdexter.myrecipe.ui.recipe_detail.recipepage.сookinginstructionspage.CookingInstructionsFragment"
+        android:label="cooking_instructions_fragment"
+        tools:layout="@layout/cooking_instructions_fragment" />
 </navigation>

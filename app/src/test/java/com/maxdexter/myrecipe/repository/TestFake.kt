@@ -5,13 +5,13 @@ import androidx.room.InvalidationTracker
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.maxdexter.myrecipe.database.firestore.RemoteDataProvider
 import com.maxdexter.myrecipe.database.room.AppDatabase
-import com.maxdexter.myrecipe.database.room.NoteDao
+import com.maxdexter.myrecipe.database.room.RecipeDao
 import com.maxdexter.myrecipe.model.Recipe
 import com.maxdexter.myrecipe.model.User
 import kotlinx.coroutines.channels.ReceiveChannel
 
 class AppDatabaseFake: AppDatabase() {
-    override fun noteDao(): NoteDao {
+    override fun recipeDao(): RecipeDao {
         TODO("Not yet implemented")
     }
 
