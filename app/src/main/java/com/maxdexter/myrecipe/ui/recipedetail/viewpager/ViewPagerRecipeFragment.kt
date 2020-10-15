@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.tabs.TabLayoutMediator
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.adapter.ViewPagerAdapter
 import com.maxdexter.myrecipe.databinding.ViewPagerRecipeFragmentBinding
@@ -27,8 +28,17 @@ class ViewPagerRecipeFragment : Fragment() {
         if (args != null) {
             pagerAdapter = ViewPagerAdapter(parentFragmentManager, lifecycle,args.recipe)
         }
+        val viewPager = binding.viewPager2
+        viewPager.adapter  = pagerAdapter
+        val tabLayout = binding.tabLayout
+        TabLayoutMediator(tabLayout, viewPager) {tab, position ->
+            when(position) {
+                0 -> tab.text = "Ингредиенты"
+                1 -> tab.text = "Инструкция"
+            }
+        }.attach()
 
-        binding.viewPager2.adapter = pagerAdapter
+
         return binding.root
     }
 
