@@ -5,7 +5,7 @@ import com.maxdexter.myrecipe.model.User
 import kotlinx.coroutines.channels.ReceiveChannel
 
 interface RemoteDataProvider {
-    suspend fun subscribeToAllNotes(): ReceiveChannel<MutableList<Recipe>>
+    suspend fun subscribeToAllNotes(): ReceiveChannel<List<Recipe>>
     suspend fun getNoteById(uuid: String): Recipe
     suspend fun saveNote(recipe: Recipe) : Recipe
     suspend fun getCurrentUser(): User?

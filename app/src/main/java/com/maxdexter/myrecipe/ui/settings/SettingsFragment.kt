@@ -56,12 +56,7 @@ class SettingsFragment : Fragment() {
             if (it) {
                 binding.auth.isEnabled = false
                 binding.exit.isEnabled = true
-                binding.btnDownloadFireStore.apply { isEnabled = true
-                    setColorFilter(R.color.colorAccent)}
-
             } else {
-                binding.btnDownloadFireStore.apply { isEnabled = false
-                    setColorFilter(Color.GRAY)}
                 binding.auth.isEnabled = true
                 binding.exit.isEnabled = false
             }

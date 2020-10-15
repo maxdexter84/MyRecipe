@@ -53,43 +53,7 @@
 
 
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cv_tools_download"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:cardElevation="@dimen/cardview_default_elevation"
-            android:layout_marginTop="@dimen/medium_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/exit">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_marginTop="@dimen/min_margin"
-                android:layout_marginBottom="@dimen/min_margin"
-                android:fontFamily="@font/roboto_mono"
-                android:text="@string/synchronization"
-                android:textSize="@dimen/medium_text" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_download_fire_store"
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                android:layout_marginTop="@dimen/min_margin"
-                android:layout_marginEnd="@dimen/medium_margin"
-                android:layout_marginBottom="@dimen/min_margin"
-                android:elevation="@dimen/medium_margin"
-                android:onClick="@{()->settingsViewModel.downloadFromFireStore()}"
-                android:src="@drawable/ic_baseline_cloud_download_24"
-                android:text="@string/download"
-                android:textSize="12sp" />
-
-        </com.google.android.material.card.MaterialCardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

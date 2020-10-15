@@ -1,15 +1,17 @@
 package com.maxdexter.myrecipe.model
 
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.maxdexter.myrecipe.utils.currentDate
+import kotlinx.android.parcel.Parcelize
 
 import java.util.*
 
 
-
+@Parcelize
 @Entity
 data class Recipe(
     @PrimaryKey(autoGenerate = true)
@@ -33,4 +35,4 @@ data class Recipe(
     @ColumnInfo(name = "picURL")
     val picURL: String = ""
 
-)
+) : Parcelable

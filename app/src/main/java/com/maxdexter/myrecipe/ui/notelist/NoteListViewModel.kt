@@ -41,6 +41,10 @@ class NoteListViewModel(
         currentRecipe?.let { repository?.deleteNoteFromFireStore(it) }
     }
 
+    fun updateList() {
+        repository?.getFireRecipe()
+    }
+
 
 
     fun deleteItem(recipe: Recipe) {

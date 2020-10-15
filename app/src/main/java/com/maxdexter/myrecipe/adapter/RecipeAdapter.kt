@@ -1,7 +1,11 @@
 package com.maxdexter.myrecipe.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,22 +14,27 @@ import com.maxdexter.myrecipe.model.Recipe
 
 
 class NoteAdapter (val clickListener: NoteListener): ListAdapter<Recipe,NoteViewHolder>(NoteAdapterDiffCallback()) {
-
+    private val _endList = MutableLiveData<Boolean>()
+            val endList: LiveData<Boolean>
+            get() = _endList
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(clickListener,item)
-
+        holder.bind(clickListener,item, position)
+        if (position == (itemCount - 1)) {
+            Log.i("SCROLL", "$position")
+            _endList.value = true
+        }
     }
 }
 
 
 class NoteViewHolder private constructor(private val binding: ListItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(clickListener: NoteListener, recipe: Recipe) = with (recipe){
+    fun bind(clickListener: NoteListener, recipe: Recipe, position: Int) = with (recipe){
         binding.noteItem = recipe
         binding.clickListener = clickListener
         binding.executePendingBindings()
@@ -59,6 +68,6 @@ class NoteAdapterDiffCallback : DiffUtil.ItemCallback<Recipe>() {
 
 }
 
-class NoteListener(val clickListener: (id: Long) -> Unit) {
-    fun onClick(recipe: Recipe) = clickListener(recipe.id)
+class NoteListener(val clickListener: (recipe: Recipe) -> Unit) {
+    fun onClick(recipe: Recipe) = clickListener(recipe)
 }

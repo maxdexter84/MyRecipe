@@ -18,7 +18,7 @@ private const val NOTES_COLLECTION = "notes"
 private const val USERS_COLLECTION = "users"
 private const val RECIPES_COLLECTION = "recipes"
 class FireStoreProvider(private val db: FirebaseFirestore, private val auth: FirebaseAuth) : RemoteDataProvider {
-
+    var lastVisible: DocumentSnapshot? = null
     private val TAG = "${FireStoreProvider::class.java.simpleName} :"
 
     private val currentUser
@@ -34,22 +34,57 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
     private fun getRecipesCollection() = db.collection(RECIPES_COLLECTION)
 
 
+//    @ExperimentalCoroutinesApi
+//    override suspend fun subscribeToAllNotes(): ReceiveChannel<MutableList<Recipe>> =
+//        Channel<MutableList<Recipe>>(Channel.CONFLATED).apply {
+//            var registration: ListenerRegistration? = null
+//            try {
+//               registration = getUserNotesCollection().addSnapshotListener { snapshot , e->
+//                 val list = snapshot?.documents?.map { it.toObject(Recipe::class.java)!! } as MutableList<Recipe>
+//                   offer(list)
+//                    if (e != null) {
+//                        Log.e(TAG, e.message.toString())
+//                    }
+//                }
+//            }catch (e: Throwable) {
+//                Log.e(TAG, e.stackTraceToString())
+//            }
+//            invokeOnClose { registration?.remove() }
+//        }
+    @Suppress("UNCHECKED_CAST")
     @ExperimentalCoroutinesApi
-    override suspend fun subscribeToAllNotes(): ReceiveChannel<MutableList<Recipe>> =
-        Channel<MutableList<Recipe>>(Channel.CONFLATED).apply {
-            var registration: ListenerRegistration? = null
+    override suspend fun subscribeToAllNotes(): ReceiveChannel<List<Recipe>> =
+        Channel<List<Recipe>>(Channel.CONFLATED).apply {
+
             try {
-               registration = getUserNotesCollection().addSnapshotListener { snapshot , e->
-                 val list = snapshot?.documents?.map { it.toObject(Recipe::class.java)!! } as MutableList<Recipe>
-                   offer(list)
-                    if (e != null) {
-                        Log.e(TAG, e.message.toString())
+                if (lastVisible == null) {
+                    getRecipesCollection().limit(5).addSnapshotListener { snapshot , e->
+                        if (snapshot != null){
+                            val list = snapshot.documents.map { it.toObject(Recipe::class.java) }
+                            offer(list as List<Recipe>)
+                            lastVisible = snapshot.documents.last()
+                            Log.i("SNAPSHOT", "$lastVisible")
+                        }
+
+                        if (e != null) {
+                            Log.e(TAG, e.message.toString())
+                        }
+                    }
+
+                }else {
+                    getRecipesCollection().limit(5).startAfter(lastVisible).addSnapshotListener { snapshot , e->
+                        val list = snapshot?.documents?.map { it.toObject(Recipe::class.java)}
+                        offer(list as List<Recipe>)
+                        lastVisible = snapshot.documents.last()
+                        Log.i("SNAPSHOT", "Else $lastVisible")
+                        if (e != null) {
+                            Log.e(TAG, e.message.toString())
+                        }
                     }
                 }
             }catch (e: Throwable) {
                 Log.e(TAG, e.stackTraceToString())
             }
-            invokeOnClose { registration?.remove() }
         }
 
 //    override suspend fun saveNote(recipe: Recipe): Recipe =
@@ -71,7 +106,7 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
     override suspend fun saveNote(recipe: Recipe): Recipe =
         suspendCoroutine { continuation ->
             try {
-                getRecipesCollection().document(recipe.uuid).set(recipe)
+                getRecipesCollection().document(recipe.recipe).set(recipe)
                     .addOnSuccessListener {
                         Log.i("TAG","${recipe.recipe}  Success add")
                         continuation.resume(recipe)

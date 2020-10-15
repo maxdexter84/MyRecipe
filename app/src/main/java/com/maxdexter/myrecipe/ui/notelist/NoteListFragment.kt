@@ -6,10 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.adapter.NoteAdapter
@@ -37,6 +40,7 @@ class NoteListFragment : Fragment() {
         viewModel = ViewModelProvider(this,viewModelFactory).get(NoteListViewModel::class.java)
         binding.noteListViewModel = viewModel
         binding.lifecycleOwner = this
+        binding.executePendingBindings()
 
         eventTypeObserver()
         initRecycler()
@@ -61,6 +65,7 @@ class NoteListFragment : Fragment() {
                 }.show()
                 EventType.NAVIGATE -> Log.i("EVENT", "Event type NAVIGATE")
                 EventType.NO_EVENTS -> Log.i("EVENT", "Event type NO_EVENT")
+                null -> Log.i("EVENT", "null event")
             }
         })
     }
@@ -68,12 +73,21 @@ class NoteListFragment : Fragment() {
 
 
     private fun initRecycler() {
-        val adapter = NoteAdapter(NoteListener { id -> this.findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToViewPagerRecipeFragment2("")) })
-        viewModel.notes?.observe(viewLifecycleOwner, { adapter.submitList(it)   })
+        val adapter = NoteAdapter(NoteListener { recipe -> this.findNavController().navigate(NoteListFragmentDirections.actionNoteListFragmentToViewPagerRecipeFragment2(recipe)) })
+        viewModel.notes?.observe(viewLifecycleOwner, {
+            adapter.submitList(it)   })
         val recyclerView = binding.recycler
-        val layoutManager = GridLayoutManager(context, 2)
+        val layoutManager = StaggeredGridLayoutManager( 2, StaggeredGridLayoutManager.VERTICAL)
+
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
+
+        adapter.endList.observe(viewLifecycleOwner, {
+            if (it) {
+                Toast.makeText(context, "udate", Toast.LENGTH_SHORT).show()
+                viewModel.updateList()
+            }
+        })
     }
 
 

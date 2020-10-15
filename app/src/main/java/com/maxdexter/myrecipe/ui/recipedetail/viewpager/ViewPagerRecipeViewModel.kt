@@ -1,4 +1,4 @@
-package com.maxdexter.myrecipe.ui.recipe_detail.viewpager
+package com.maxdexter.myrecipe.ui.recipedetail.viewpager
 
 import androidx.lifecycle.ViewModel
 

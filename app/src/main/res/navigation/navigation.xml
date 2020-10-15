@@ -30,19 +30,19 @@
         android:label="SearchFragment" />
     <fragment
         android:id="@+id/viewPagerRecipeFragment"
-        android:name="com.maxdexter.myrecipe.ui.recipe_detail.viewpager.ViewPagerRecipeFragment"
+        android:name="com.maxdexter.myrecipe.ui.recipedetail.viewpager.ViewPagerRecipeFragment"
         android:label="ViewPagerRecipeFragment" >
         <argument
-            android:name="recipeUUID"
-            app:argType="string" />
+            android:name="recipe"
+            app:argType="com.maxdexter.myrecipe.model.Recipe" />
     </fragment>
     <fragment
         android:id="@+id/recipeInfoFragment"
-        android:name="com.maxdexter.myrecipe.ui.recipe_detail.recipepage.recipeinfopage.RecipeInfoFragment"
+        android:name="com.maxdexter.myrecipe.ui.recipedetail.recipepage.recipeinfopage.RecipeInfoFragment"
         android:label="RecipeInfoFragment" />
     <fragment
         android:id="@+id/cookingInstructionsFragment"
-        android:name="com.maxdexter.myrecipe.ui.recipe_detail.recipepage.сookinginstructionspage.CookingInstructionsFragment"
+        android:name="com.maxdexter.myrecipe.ui.recipedetail.recipepage.сookinginstructionspage.CookingInstructionsFragment"
         android:label="cooking_instructions_fragment"
         tools:layout="@layout/cooking_instructions_fragment" />
 </navigation>

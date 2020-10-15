@@ -1,4 +1,4 @@
-package com.maxdexter.myrecipe.ui.recipe_detail.viewpager
+package com.maxdexter.myrecipe.ui.recipedetail.viewpager
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,18 +13,21 @@ import com.maxdexter.myrecipe.databinding.ViewPagerRecipeFragmentBinding
 
 class ViewPagerRecipeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ViewPagerRecipeFragment()
-    }
+
 
     private lateinit var viewModelViewPager: ViewPagerRecipeViewModel
     private lateinit var binding: ViewPagerRecipeFragmentBinding
+    private lateinit var pagerAdapter: ViewPagerAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.view_pager_recipe_fragment, container, false)
-        val pagerAdapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
+        val args = arguments?.let { ViewPagerRecipeFragmentArgs.fromBundle(it) }
+        if (args != null) {
+            pagerAdapter = ViewPagerAdapter(parentFragmentManager, lifecycle,args.recipe)
+        }
+
         binding.viewPager2.adapter = pagerAdapter
         return binding.root
     }

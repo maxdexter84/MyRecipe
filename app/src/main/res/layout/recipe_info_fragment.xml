@@ -4,20 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="recipe"
+            type="com.maxdexter.myrecipe.model.Recipe" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.recipe_detail.recipepage.recipeinfopage.RecipeInfoFragment">
+        tools:context=".ui.recipedetail.recipepage.recipeinfopage.RecipeInfoFragment">
 
         <ImageView
             android:id="@+id/iv_recipe_image"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/delishes"
+            tools:src="@drawable/delishes"
+            imgUrl="@{recipe.picURL}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_mono_medium"
-            android:text="Стейк"
+            tools:text="Стейк"
+            android:text="@{recipe.recipe}"
             android:textSize="@dimen/large_text"
             android:layout_marginTop="@dimen/min_margin"
             android:paddingStart="@dimen/medium_margin"
@@ -41,7 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_mono"
-            android:text="Основные блюда, блюда из мяса"
+            tools:text="Основные блюда, блюда из мяса"
+            app:textSplit="@{recipe}"
             android:textSize="@dimen/small_text"
             android:layout_marginTop="@dimen/min_margin"
             android:paddingStart="@dimen/medium_margin"
@@ -70,6 +75,7 @@
             android:id="@+id/lv_ingredients_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:listAdapter="@{recipe}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

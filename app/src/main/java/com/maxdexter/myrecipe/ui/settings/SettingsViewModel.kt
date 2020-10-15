@@ -37,34 +37,32 @@ class SettingsViewModel(private val repository: NoteRepository?,private val owne
     private fun isAuthFunc() {
         uiScope.launch {
             repository?.getCurrentUser().let {_isAuth.value = it != null
-                if (it != null) {
-                    onLoadToFireStore()
-                }
+//                if (it != null) {
+//                    onLoadToFireStore()
+//                }
             }
 
         }
-
-
     }
 
     fun logOut(){
         _logOut.value = true
     }
 
-    private fun onLoadToFireStore() {
-        notes?.observe(owner, Observer{ list ->
-            uiScope.launch { repository?.loadToFireStore(list) }
-        })
-    }
-
-
-    fun downloadFromFireStore(){
-        var listOfNote = mutableListOf<Recipe>()
-        uiScope.launch { repository?.synchronization().let{
-            if (it != null) { listOfNote = it.receive()} }
-        }
-        uiScope.launch {listOfNote.toSet().forEach{note ->  repository?.insert(note) }  }
-    }
+//    private fun onLoadToFireStore() {
+//        notes?.observe(owner, Observer{ list ->
+//            uiScope.launch { repository?.loadToFireStore(list) }
+//        })
+//    }
+//
+//
+//    fun downloadFromFireStore(){
+//        var listOfNote = listOf<Recipe>()
+//        uiScope.launch { repository?.synchronization().let{
+//            if (it != null) { listOfNote = it.receive()} }
+//        }
+//        uiScope.launch {listOfNote.toSet().forEach{note ->  repository?.insert(note) }  }
+//    }
 
 
     override fun onCleared() {
