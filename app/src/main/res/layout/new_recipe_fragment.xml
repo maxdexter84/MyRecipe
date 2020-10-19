@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_baseline_add_photo_alternate_24" />
+            app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/wrap_recipe_name_et"
@@ -34,6 +34,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_recipe_name"
                 android:gravity="center"
+                android:backgroundTint="@color/fui_transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/dish_name" />

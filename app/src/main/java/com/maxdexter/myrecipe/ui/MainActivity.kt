@@ -11,6 +11,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.databinding.ActivityMainBinding
+import com.maxdexter.myrecipe.model.Rating
 import com.maxdexter.myrecipe.model.Recipe
 import com.maxdexter.myrecipe.repository.NoteRepository
 import kotlinx.coroutines.*
@@ -39,9 +40,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-//        coroutineScope.launch {
-//            ioLoad()
-//        }
+        coroutineScope.launch {
+            ioLoad()
+        }
 
 
 
@@ -79,7 +80,8 @@ class MainActivity : AppCompatActivity() {
                         recipeDescription = descript,
                         dishType = delishType,
                         cuisine = cuisine,
-                        picURL = urlPic)
+                        picURL = urlPic
+                    )
                     noteRepository.saveNoteInFireStore(recipe)
                     Log.d("THREAD", " ${recipe.id}")
                 }
