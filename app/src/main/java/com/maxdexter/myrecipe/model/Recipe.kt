@@ -3,6 +3,7 @@ package com.maxdexter.myrecipe.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.maxdexter.myrecipe.utils.currentDate
@@ -28,11 +29,15 @@ data class Recipe(
     val dishType : String = "",
     @ColumnInfo(name = "cuisine")
     val cuisine : String = "",
-    @ColumnInfo(name = "notes")
-    val notes : String = "",
+    @Embedded
+    val comments: Comments,
     @ColumnInfo(name ="date")
     val date: String = currentDate(),
     @ColumnInfo(name = "picURL")
-    val picURL: String = ""
+    val picURL: String = "",
+    @Embedded
+    val rating: Rating,
+    @Embedded
+    var author: User
 
 ) : Parcelable

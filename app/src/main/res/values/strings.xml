@@ -36,6 +36,11 @@
     <string name="toast_login_about_delete">To delete a note, you need to log in</string>
     <string name="ingredients_title">Ингредиенты</string>
     <string name="cooking_instruction_title">Инструкция приготовления</string>
+    <string name="dish_name">Название блюда</string>
+    <string name="title_dish_category">Категория блюда</string>
+    <string name="recipe_description_title">Инструкция приготовления</string>
+    <string name="ingredient_hint">Новый ингредиент</string>
+    <string name="add_ingredient_btn_title">Добавить ингредиент</string>
 
 
 </resources>

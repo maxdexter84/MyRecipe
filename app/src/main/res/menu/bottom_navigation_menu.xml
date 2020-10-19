@@ -10,7 +10,7 @@
         android:title="@string/all_note"
         />
     <item
-        android:id="@+id/detailFragment"
+        android:id="@+id/newRecipeFragment"
         android:icon="@drawable/ic_baseline_add_24"
         android:title="@string/add_note"
         />

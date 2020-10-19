@@ -30,18 +30,25 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
-        <TextView
-            android:id="@+id/tv_recipe_description"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:fontFamily="@font/roboto_mono_medium"
-            android:padding="@dimen/min_margin"
-            android:text="@{recipe.recipeDescription}"
-            android:textSize="@dimen/medium_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_cooking_instruction_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_cooking_instruction_title">
 
+
+            <TextView
+                android:id="@+id/tv_recipe_description"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="@font/roboto_mono_medium"
+                android:padding="@dimen/min_margin"
+                android:text="@{recipe.recipeDescription}"
+                android:textSize="@dimen/medium_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cooking_instruction_title" />
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

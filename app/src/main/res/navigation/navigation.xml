@@ -45,4 +45,8 @@
         android:name="com.maxdexter.myrecipe.ui.recipedetail.recipepage.сookinginstructionspage.CookingInstructionsFragment"
         android:label="cooking_instructions_fragment"
         tools:layout="@layout/cooking_instructions_fragment" />
+    <fragment
+        android:id="@+id/newRecipeFragment"
+        android:name="com.maxdexter.myrecipe.ui.recipedetail.newrecipe.NewRecipeFragment"
+        android:label="NewRecipeFragment" />
 </navigation>
