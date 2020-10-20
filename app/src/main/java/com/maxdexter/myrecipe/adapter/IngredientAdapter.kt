@@ -15,8 +15,9 @@ class IngredientAdapter : ListAdapter<Ingredient, IngredientAdapter.ViewHolder>(
 
 
     class ViewHolder(val binding: ListItemIngredientBinding): RecyclerView.ViewHolder(binding.root) {
-        fun find(){
-
+        fun bind(ingredient: Ingredient){
+            binding.item = ingredient
+            binding.executePendingBindings()
         }
     }
 
@@ -31,14 +32,15 @@ class IngredientAdapter : ListAdapter<Ingredient, IngredientAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: IngredientAdapter.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val item = getItem(position)
+        holder.bind(item)
     }
 
 }
 
 class IngredientAdapterItemCallback : DiffUtil.ItemCallback<Ingredient>() {
     override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
-     return  oldItem.ingredient == newItem.ingredient
+     return  oldItem.uuid == newItem.uuid
     }
 
     override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {

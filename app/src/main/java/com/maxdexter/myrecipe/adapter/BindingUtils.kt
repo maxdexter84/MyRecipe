@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.maxdexter.myrecipe.R
+import com.maxdexter.myrecipe.model.Ingredient
 import com.maxdexter.myrecipe.model.Recipe
 
 @BindingAdapter("textTitle")
@@ -58,3 +59,9 @@ fun listViewAdapter(listView: ListView, recipe: Recipe?) {
     val adapter = ArrayAdapter(listView.context, android.R.layout.simple_spinner_item,list)
     listView.adapter = adapter
 }
+
+@BindingAdapter("setIngredient")
+fun EditText.setIngredient(ingredient: Ingredient){
+    this.setText(ingredient.ingredient)
+}
+

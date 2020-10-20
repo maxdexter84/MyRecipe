@@ -75,7 +75,7 @@ class FireStoreProvider(private val db: FirebaseFirestore, private val auth: Fir
                     getRecipesCollection().limit(5).startAfter(lastVisible).addSnapshotListener { snapshot , e->
                         val list = snapshot?.documents?.map { it.toObject(Recipe::class.java)}
                         offer(list as List<Recipe>)
-                        lastVisible = snapshot.documents.last()
+                        lastVisible = snapshot.documents[3]
                         Log.i("SNAPSHOT", "Else $lastVisible")
                         if (e != null) {
                             Log.e(TAG, e.message.toString())
