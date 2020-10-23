@@ -72,34 +72,19 @@ fun EditText.setIngredient(ingredient: Ingredient){
 @BindingAdapter("setAdapter")
 fun Spinner.setAdapter(ingredient: Ingredient){
     val arr = ingredient.arrMeasure
-    val arrAdapter = ArrayAdapter(this.context,android.R.layout.simple_spinner_dropdown_item,arr)
+    val arrAdapter = ArrayAdapter(this.context,R.layout.list_item_spinner,arr)
+    arrAdapter.setDropDownViewResource(R.layout.list_item_spinner)
    this.adapter = arrAdapter
 }
 @BindingAdapter("setDishType")
 fun Spinner.setDishType(flag: Boolean){
     if (flag){
         val arrayDishType = resources.getStringArray(R.array.RecipeType)
-        val arrAdapter = ArrayAdapter(this.context, android.R.layout.simple_spinner_item,arrayDishType)
-        arrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val arrAdapter = ArrayAdapter(this.context, R.layout.list_item_spinner,arrayDishType)
+        arrAdapter.setDropDownViewResource(R.layout.list_item_spinner)
         this.adapter = arrAdapter
     }
 
 }
-//
-//@BindingAdapter("textListener")
-//fun EditText.textListener(position:Int, ingredient: Ingredient){
-//    this.addTextChangedListener(object : TextWatcher{
-//        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//            TODO("Not yet implemented")
-//        }
-//
-//        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//            TODO("Not yet implemented")
-//        }
-//
-//        override fun afterTextChanged(s: Editable?) {
-//            TODO("Not yet implemented")
-//        }
-//    })
-//}
+
 

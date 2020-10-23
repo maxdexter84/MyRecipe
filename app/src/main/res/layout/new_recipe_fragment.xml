@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="event"
+            type="com.maxdexter.myrecipe.ui.event.EventType" />
+        <variable
             name="viewModel"
             type="com.maxdexter.myrecipe.ui.recipedetail.newrecipe.NewRecipeViewModel" />
     </data>
@@ -41,6 +44,7 @@
                 android:clickable="true"
                 android:elevation="2dp"
                 android:focusable="true"
+                android:onClick="@{()->viewModel.eventType(event.NEW_PHOTO)}"
                 android:src="@drawable/ic_baseline_add_a_photo_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +57,7 @@
                 android:clickable="true"
                 android:elevation="2dp"
                 android:focusable="true"
+                android:onClick="@{()->viewModel.eventType(event.SAVE)}"
                 android:src="@drawable/ic_baseline_save_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,6 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
+                android:layout_gravity="center"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
                 app:setDishType="@{true}" />
 
