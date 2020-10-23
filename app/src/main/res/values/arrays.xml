@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="RecipeType">
+        <item>Завтраки</item>
+        <item>Основные блюда</item>
+        <item>Салаты</item>
+        <item>Закуски</item>
+        <item>Выпечка</item>
+        <item>Десерты</item>
+        <item>Алкогольные напитки</item>
+        <item>Безалкогольные напитки</item>
+        <item>Супы</item>
+        <item>Бутерброды и Сэндвичи</item>
+        <item>Соусы и Маринады</item>
+        <item>Загатовки</item>
+    </string-array>
+
+    <string-array name="Measure">
+        <item>БАНКА</item>
+        <item>ГОЛОВКА</item>
+        <item>ГРАММ</item>
+        <item>ЗУБЧИК</item>
+        <item>КИЛОГРАММ</item>
+        <item>КУСОК</item>
+        <item>ЛИТР</item>
+        <item>МИЛЛИЛИТР</item>
+        <item>НА КОНЧИКЕ НОЖА</item>
+        <item>ПО ВКУСУ</item>
+        <item>ПУЧОК</item>
+        <item>СТАКАН</item>
+        <item>СТОЛОВАЯ ЛОЖКА</item>
+        <item>ЧАЙНАЯ ЛОЖКА</item>
+        <item>ШТУКА</item>
+        <item>ЩЕПОТКА</item>
+        <item>СТЕБЕЛЬ</item>
+        <item>ДЭШ</item>
+        <item>ВЕТОЧКА</item>
+    </string-array>
+
+</resources>

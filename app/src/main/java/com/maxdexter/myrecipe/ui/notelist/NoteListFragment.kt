@@ -10,9 +10,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.maxdexter.myrecipe.R
 import com.maxdexter.myrecipe.adapter.NoteAdapter
@@ -77,7 +75,7 @@ class NoteListFragment : Fragment() {
         viewModel.notes?.observe(viewLifecycleOwner, {
             adapter.submitList(it)   })
         val recyclerView = binding.recycler
-        val layoutManager = StaggeredGridLayoutManager( 2, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = LinearLayoutManager(context)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter

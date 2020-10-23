@@ -3,13 +3,12 @@ package com.maxdexter.myrecipe.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.maxdexter.myrecipe.databinding.ListItemNoteBinding
+import com.maxdexter.myrecipe.databinding.ListItemRecipeBinding
 import com.maxdexter.myrecipe.model.Recipe
 
 
@@ -32,7 +31,7 @@ class NoteAdapter (val clickListener: NoteListener): ListAdapter<Recipe,NoteView
 }
 
 
-class NoteViewHolder private constructor(private val binding: ListItemNoteBinding) : RecyclerView.ViewHolder(binding.root) {
+class NoteViewHolder private constructor(private val binding: ListItemRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(clickListener: NoteListener, recipe: Recipe, position: Int) = with (recipe){
         binding.noteItem = recipe
@@ -44,7 +43,7 @@ class NoteViewHolder private constructor(private val binding: ListItemNoteBindin
     companion object {
         fun from (parent: ViewGroup): NoteViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = ListItemNoteBinding.inflate(layoutInflater,parent, false)
+            val binding = ListItemRecipeBinding.inflate(layoutInflater,parent, false)
             return NoteViewHolder(binding)
         }
     }

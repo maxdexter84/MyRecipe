@@ -1,16 +1,12 @@
 package com.maxdexter.myrecipe.ui.recipedetail.recipepage.сookinginstructionspage
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.maxdexter.myrecipe.R
-import com.maxdexter.myrecipe.adapter.bindImage
 import com.maxdexter.myrecipe.databinding.CookingInstructionsFragmentBinding
-import com.maxdexter.myrecipe.databinding.RecipeInfoFragmentBinding
 import com.maxdexter.myrecipe.model.Recipe
 
 const val RECIPE = "recipe"

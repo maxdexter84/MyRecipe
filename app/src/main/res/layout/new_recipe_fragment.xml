@@ -4,94 +4,169 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.maxdexter.myrecipe.ui.recipedetail.newrecipe.NewRecipeViewModel" />
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.recipedetail.newrecipe.NewRecipeFragment">
+        android:layout_height="match_parent">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_new_recipe_pic"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:elevation="5dp"
-            android:scaleType="centerInside"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24" />
+            android:backgroundTint="@color/color_blue"
+            />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/add_recipe_photo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/btn_round_bg"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true"
+                android:src="@drawable/ic_baseline_add_a_photo_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/save_recipe"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/btn_round_bg"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true"
+                android:src="@drawable/ic_baseline_save_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/add_img_from_gallery"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/btn_round_bg"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true"
+                android:src="@drawable/ic_baseline_add_photo_alternate_24"
+                app:layout_constraintStart_toEndOf="@+id/add_recipe_photo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/wrap_recipe_name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:counterEnabled="true"
-            app:counterMaxLength="100"
-            app:layout_constraintTop_toBottomOf="@+id/iv_new_recipe_pic">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_recipe_name"
-                android:gravity="center"
-                android:backgroundTint="@color/fui_transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/dish_name" />
+                android:backgroundTint="@color/fui_transparent"
+                android:fontFamily="@font/roboto_mono_medium"
+                android:gravity="center"
+                android:hint="@string/dish_name"
+                android:textSize="@dimen/large_text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/title_dish_category"
-            app:layout_constraintTop_toBottomOf="@+id/wrap_recipe_name_et" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textView3"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/title_dish_category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/spinner_dish_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            <Spinner
+                android:id="@+id/spinner_dish_type"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:setDishType="@{true}" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/ingredients_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_dish_type" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textView4"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/ingredients_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_dish_type" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_ingredients"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/list_item_ingredient"
-            tools:itemCount="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                tools:itemCount="1"
+                tools:listitem="@layout/list_item_ingredient" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/recipe_description_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_ingredients" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_ingredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/color_white"
+                android:text="@string/add_ingredient_btn_title"
+                android:textColor="@color/dark_grey"
+                android:layout_gravity="center"
+                app:icon="@drawable/ic_baseline_add_24"
+                app:iconTint="@color/dark_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_ingredients" />
 
-        <EditText
-            android:id="@+id/et_recipe_description"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/recipe_description_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_ingredient" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_recipe_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="350dp"
+                android:gravity="top"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 </layout>

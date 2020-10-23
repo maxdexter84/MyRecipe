@@ -1,5 +1,6 @@
 package com.maxdexter.myrecipe.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,12 @@ import com.maxdexter.myrecipe.databinding.ListItemIngredientBinding
 import com.maxdexter.myrecipe.model.Ingredient
 
 class IngredientAdapter : ListAdapter<Ingredient, IngredientAdapter.ViewHolder>(IngredientAdapterItemCallback()){
-
-
+    private lateinit var itemListener: ItemListener
+    val viewList = mutableListOf<View>()
     class ViewHolder(val binding: ListItemIngredientBinding): RecyclerView.ViewHolder(binding.root) {
-        fun find(){
+        fun bind(ingredient: Ingredient){
+            binding.item = ingredient
+            binding.executePendingBindings()
 
         }
     }
@@ -31,18 +34,23 @@ class IngredientAdapter : ListAdapter<Ingredient, IngredientAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: IngredientAdapter.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val item = getItem(position)
+        viewList.add(holder.itemView)
+        holder.bind(item)
     }
 
 }
 
 class IngredientAdapterItemCallback : DiffUtil.ItemCallback<Ingredient>() {
     override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
-     return  oldItem.ingredient == newItem.ingredient
+     return  oldItem.uuid == newItem.uuid
     }
-
+    @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
       return  oldItem == newItem
     }
+}
 
+interface ItemListener{
+    fun onClick(position: Int)
 }

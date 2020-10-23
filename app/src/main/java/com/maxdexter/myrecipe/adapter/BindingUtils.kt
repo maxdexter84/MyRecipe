@@ -2,16 +2,21 @@ package com.maxdexter.myrecipe.adapter
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.maxdexter.myrecipe.R
+import com.maxdexter.myrecipe.model.Ingredient
 import com.maxdexter.myrecipe.model.Recipe
 
 @BindingAdapter("textTitle")
@@ -58,3 +63,43 @@ fun listViewAdapter(listView: ListView, recipe: Recipe?) {
     val adapter = ArrayAdapter(listView.context, android.R.layout.simple_spinner_item,list)
     listView.adapter = adapter
 }
+
+@BindingAdapter("setIngredient")
+fun EditText.setIngredient(ingredient: Ingredient){
+    this.setText(ingredient.ingredient)
+}
+
+@BindingAdapter("setAdapter")
+fun Spinner.setAdapter(ingredient: Ingredient){
+    val arr = ingredient.arrMeasure
+    val arrAdapter = ArrayAdapter(this.context,android.R.layout.simple_spinner_dropdown_item,arr)
+   this.adapter = arrAdapter
+}
+@BindingAdapter("setDishType")
+fun Spinner.setDishType(flag: Boolean){
+    if (flag){
+        val arrayDishType = resources.getStringArray(R.array.RecipeType)
+        val arrAdapter = ArrayAdapter(this.context, android.R.layout.simple_spinner_item,arrayDishType)
+        arrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        this.adapter = arrAdapter
+    }
+
+}
+//
+//@BindingAdapter("textListener")
+//fun EditText.textListener(position:Int, ingredient: Ingredient){
+//    this.addTextChangedListener(object : TextWatcher{
+//        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//            TODO("Not yet implemented")
+//        }
+//
+//        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//            TODO("Not yet implemented")
+//        }
+//
+//        override fun afterTextChanged(s: Editable?) {
+//            TODO("Not yet implemented")
+//        }
+//    })
+//}
+

@@ -26,27 +26,27 @@
 
             <ImageView
                 android:id="@+id/iv_recipe_image"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="top"
-                tools:src="@drawable/ic_brocken_img"
                 app:imgUrl="@{noteItem.picURL}"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_brocken_img" />
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto_mono"
-                android:gravity="center_horizontal"
-                android:textAppearance="?attr/textAppearanceListItem"
+                android:gravity="center|top"
                 android:textSize="@dimen/title_text_size"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_recipe_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_recipe_image"
+                app:layout_constraintStart_toEndOf="@+id/iv_recipe_image"
+                app:layout_constraintTop_toTopOf="@+id/iv_recipe_image"
                 app:textTitle="@{noteItem}"
                 tools:text="My Note" />
         </androidx.constraintlayout.widget.ConstraintLayout>
